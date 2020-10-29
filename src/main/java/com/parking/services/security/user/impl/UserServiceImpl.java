@@ -1,9 +1,9 @@
-package com.parking.services.impl;
+package com.parking.services.security.user.impl;
 
 import com.parking.models.security.user.User;
 import com.parking.models.security.user.UserDTO;
 import com.parking.repositories.UserRepository;
-import com.parking.services.UserService;
+import com.parking.services.security.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
@@ -32,6 +32,11 @@ public class UserServiceImpl implements UserService {
     @Override
     public void save(UserDTO userDto) {
         userRepository.save(convertToUser(userDto));
+    }
+
+    @Override
+    public User findByUsername(String username) {
+        return userRepository.findByUsername(username).orElse(null);
     }
 
 }
