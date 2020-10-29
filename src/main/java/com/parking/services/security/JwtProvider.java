@@ -1,5 +1,6 @@
-package com.parking.models.security.utils;
+package com.parking.services.security;
 
+import com.parking.models.security.utils.UserPrincipal;
 import io.jsonwebtoken.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

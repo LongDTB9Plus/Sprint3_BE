@@ -12,20 +12,17 @@ public class JwtResponse {
 
     private String email;
 
-    private String avatar;
-
     private Collection<? extends GrantedAuthority> authorities;
 
 
     public JwtResponse() {
     }
 
-    public JwtResponse( String token, String username, String email, String avatar, Collection<?
+    public JwtResponse( String token, String username, String email, Collection<?
             extends GrantedAuthority> authorities) {
         this.token = token;
         this.username = username;
         this.email = email;
-        this.avatar = avatar;
         this.authorities = authorities;
     }
 
@@ -51,14 +48,6 @@ public class JwtResponse {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getAvatar() {
-        return avatar;
-    }
-
-    public void setAvatar(String avatar) {
-        this.avatar = avatar;
     }
 
     public Collection<? extends GrantedAuthority> getAuthorities() {

@@ -1,25 +1,33 @@
 package com.parking.models.DAO;
 
 import javax.persistence.*;
+import java.util.Set;
+
 @Entity
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer id;
+    private Integer carId;
     private String license;
     private String color;
-    private String type;
     private String producer;
-    @ManyToOne(cascade = CascadeType.MERGE)
-    @JoinColumn(name = "idCustomer")
-    private Customer customer;
+    @OneToMany(mappedBy = "car")
+    private Set<Parking> parkings;
 
-    public Integer getId() {
-        return id;
+    public Set<Parking> getParkings() {
+        return parkings;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setParkings(Set<Parking> parkings) {
+        this.parkings = parkings;
+    }
+
+    public Integer getCarId() {
+        return carId;
+    }
+
+    public void setCarId(Integer carId) {
+        this.carId = carId;
     }
 
     public String getLicense() {
@@ -38,14 +46,6 @@ public class Car {
         this.color = color;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getProducer() {
         return producer;
     }
@@ -54,11 +54,4 @@ public class Car {
         this.producer = producer;
     }
 
-//    public Customer getCustomer() {
-//        return customer;
-//    }
-//
-//    public void setCustomer(Customer customer) {
-//        this.customer = customer;
-//    }
 }
