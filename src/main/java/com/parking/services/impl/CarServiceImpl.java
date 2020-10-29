@@ -46,6 +46,26 @@ public class CarServiceImpl implements CarService {
 
     @Override
     public void delete(int id) {
+        carRepository.deleteById(id);
+    }
 
+    @Override
+    public Car findCarByLicense(String license) {
+        return carRepository.findAllByLicense(license).orElse(null);
+    }
+
+    @Override
+    public Car findCarById(Integer id) {
+        return carRepository.findById(id).orElse(null);
+    }
+
+    @Override
+    public Integer addNewCar(Car car) {
+        carRepository.save(car);
+        Car getID = carRepository.findAllByLicense(car.getLicense()).orElse(null);
+        if (getID != null){
+            return getID.getCarId();
+        }
+        return 0;
     }
 }
