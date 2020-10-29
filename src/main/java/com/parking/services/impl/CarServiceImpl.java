@@ -24,12 +24,17 @@ public class CarServiceImpl implements CarService {
     @Autowired
     CustomerRepository customerRepository;
 
+
     @Autowired
     ParkingRepository parkingRepository;
 
-    Car convertToCar(CarDTO carDTO){
+    @Override
+    public Car convertToCar(CarDTO carDTO){
         Car car = new Car();
-        car.setCarId(carDTO.getCarId());
+//        Add logic for id in add new and parse situation.
+        if (carDTO.getCarId() != 0) {
+            car.setCarId(carDTO.getCarId());
+        }else car.setCarId(null);
         car.setColor(carDTO.getColor());
         car.setCustomer(customerRepository.findById(carDTO.getCustomerId()).orElse(null));
         car.setLicense(carDTO.getLicense());
@@ -75,7 +80,7 @@ public class CarServiceImpl implements CarService {
     public void delete(int id) {
         carRepository.deleteById(id);
     }
-
+//Long
     @Override
     public Car findCarByLicense(String license) {
         return carRepository.findAllByLicense(license).orElse(null);
@@ -85,13 +90,17 @@ public class CarServiceImpl implements CarService {
     public Car findCarById(Integer id) {
         return carRepository.findById(id).orElse(null);
     }
-
+//Long
     @Override
     public Integer addNewCar(Car car) {
-        carRepository.save(car);
+//        check if car already exist on database base on plate license.
         Car getID = carRepository.findAllByLicense(car.getLicense()).orElse(null);
-        if (getID != null){
-            return getID.getCarId();
+        if (getID == null) {
+            carRepository.save(car);
+            getID = carRepository.findAllByLicense(car.getLicense()).orElse(null);
+            if (getID != null) {
+                return getID.getCarId();
+            }
         }
         return 0;
     }

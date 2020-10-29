@@ -24,7 +24,7 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
     @JsonBackReference
     private List<Car> cars;
-    
+
 
     public Integer getId() {
         return id;
