@@ -17,26 +17,28 @@ public class UserPrincipal implements UserDetails, Serializable {
 
     private Integer id;
 
-    private String email;
+    private String username;
 
     @JsonIgnore
     private String password;
 
     private String fullName;
 
+    private String email;
+
     private String address;
 
     private String phoneNumber;
-
 
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal() {
     }
 
-    public UserPrincipal(Integer id, String password, String fullName, String email, String address,
+    public UserPrincipal(Integer id, String username, String password, String fullName, String email, String address,
                          String phoneNumber, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
+        this.username = username;
         this.password = password;
         this.fullName = fullName;
         this.email = email;
@@ -47,10 +49,11 @@ public class UserPrincipal implements UserDetails, Serializable {
 
     public static UserPrincipal build(User user) {
         List<GrantedAuthority> authorities = user.getRoles().stream().map(role ->
-                new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList()
+                new SimpleGrantedAuthority (role.getRoleName().name())).collect(Collectors.toList()
         );
         return new UserPrincipal(
                 user.getUserId(),
+                user.getUsername(),
                 user.getPassword(),
                 user.getFullName(),
                 user.getEmail(),
@@ -72,9 +75,8 @@ public class UserPrincipal implements UserDetails, Serializable {
 
     @Override
     public String getUsername() {
-        return this.email;
+        return this.username;
     }
-
 
     @Override
     public boolean isAccountNonExpired() {
@@ -108,7 +110,9 @@ public class UserPrincipal implements UserDetails, Serializable {
         this.id = id;
     }
 
-
+    public void setUsername(String username) {
+        this.username = username;
+    }
 
     public void setPassword(String password) {
         this.password = password;
