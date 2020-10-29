@@ -1,7 +1,6 @@
 //package com.parking.models.security.utils;
 //
-//import com.example.sprint2be.model.UserPrincipal;
-//import com.example.sprint2be.service.user.impl.UserDetailsServiceImpl;
+//
 //import org.slf4j.Logger;
 //import org.slf4j.LoggerFactory;
 //import org.springframework.beans.factory.annotation.Autowired;

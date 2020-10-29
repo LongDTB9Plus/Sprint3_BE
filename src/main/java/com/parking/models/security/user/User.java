@@ -14,6 +14,7 @@ public class User {
     private Integer userId;
     private String fullName;
     private String email; //email=username
+    private String username;
     private String password;
     private String gender;
     private String birthday;
@@ -50,6 +51,22 @@ public class User {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public Rank getRank() {
+        return rank;
+    }
+
+    public void setRank(Rank rank) {
+        this.rank = rank;
     }
 
     public void setEmail(String email) {
