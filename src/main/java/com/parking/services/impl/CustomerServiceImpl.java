@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+
 @Service
 public class CustomerServiceImpl implements CustomerService {
     @Autowired
@@ -20,7 +21,7 @@ public class CustomerServiceImpl implements CustomerService {
     @Autowired
     CarRepository carRepository;
 
-    CustomerDTO convertToCustomerDto(Customer customer){
+    CustomerDTO convertToCustomerDto(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setId(customer.getId());
         customerDTO.setNameCustomer(customer.getNameCustomer());
@@ -32,14 +33,14 @@ public class CustomerServiceImpl implements CustomerService {
         customerDTO.setAddress(customer.getAddress());
         List<Car> cars = customer.getCars();
         List<Integer> list = new ArrayList<>();
-        for (Car car: cars){
+        for (Car car : cars) {
             list.add(car.getCarId());
         }
         customerDTO.setCars(list);
         return customerDTO;
     }
 
-    Customer convertToCustomer(CustomerDTO customerDTO){
+    Customer convertToCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         customer.setId(customerDTO.getId());
         customer.setNameCustomer(customerDTO.getNameCustomer());
@@ -51,12 +52,13 @@ public class CustomerServiceImpl implements CustomerService {
         customer.setAddress(customerDTO.getAddress());
         List<Integer> list = customerDTO.getCars();
         List<Car> cars = new ArrayList<>();
-        for (int id: list){
+        for (int id : list) {
             cars.add(carRepository.findById(id).orElse(null));
         }
         customer.setCars(cars);
         return customer;
     }
+
     @Override
     public List<CustomerDTO> findAll() {
         return customerRepository.findAll().stream().map(this::convertToCustomerDto).collect(Collectors.toList());
@@ -70,5 +72,26 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public void saveCustomer(CustomerDTO customerDTO) {
         customerRepository.save(convertToCustomer(customerDTO));
+    }
+
+//    Save new customer and return customer ID of instance just saved. return 0 if saving process failed.
+    @Override
+    public Integer saveNewCustomer(Customer customer) {
+        if (checkCustomerEmailAndPhoneNumber(customer)) {
+            customerRepository.save(customer);
+//            Get the instance just saved by Email.
+            Customer customerJustAdd = customerRepository.findAllByEmail(customer.getEmail()).orElse(null);
+            if (customerJustAdd != null) {
+                return customerJustAdd.getId();
+            }
+        }
+        return 0;
+    }
+
+    // Return False if Email or Phone is exist.
+    @Override
+    public Boolean checkCustomerEmailAndPhoneNumber(Customer customer) {
+        return (customerRepository.findAllByEmail(customer.getEmail()).isEmpty())
+                || (customerRepository.findAllByPhone(customer.getPhone()).isEmpty());
     }
 }
