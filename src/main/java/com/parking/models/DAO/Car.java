@@ -14,11 +14,6 @@ public class Car {
     private String license;
     private String color;
     private String producer;
-//    quan thêm trường
-    @ManyToOne(cascade = CascadeType.DETACH)
-    @JoinColumn(name = "customerId")
-    private Customer customer;
-
     @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
     @JsonBackReference
     private Set<Parking> parkings;

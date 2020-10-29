@@ -14,4 +14,6 @@ public interface CustomerService {
     void saveCustomer(CustomerDTO customerDTO);
 
     Integer saveNewCustomer(Customer customer);
+
+    Boolean checkCustomerEmailAndPhoneNumber(Customer customer);
 }
