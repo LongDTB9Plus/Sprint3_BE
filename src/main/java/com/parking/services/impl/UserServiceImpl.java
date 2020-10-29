@@ -30,11 +30,6 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User findByUsername(String username) {
-        return userRepository.findByUsername(username).orElse(null);
-    }
-
-    @Override
     public void save(UserDTO userDto) {
         userRepository.save(convertToUser(userDto));
     }

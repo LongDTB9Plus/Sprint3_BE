@@ -3,11 +3,11 @@ package com.parking.models.security.user;
 public class UserDTO {
     private Integer userId;
     private String fullName;
-    private String email;
+    private String email; //email=username
     private String password;
-    private String phone;
     private String gender;
     private String birthday;
+    private String phone;
     private String address;
     private String rank;
 
@@ -82,4 +82,5 @@ public class UserDTO {
     public void setRank(String rank) {
         this.rank = rank;
     }
+
 }
