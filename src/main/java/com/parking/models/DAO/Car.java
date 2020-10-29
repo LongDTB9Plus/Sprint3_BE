@@ -1,5 +1,7 @@
 package com.parking.models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -11,7 +13,8 @@ public class Car {
     private String license;
     private String color;
     private String producer;
-    @OneToMany(mappedBy = "car")
+    @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
+    @JsonBackReference
     private Set<Parking> parkings;
 
     public Set<Parking> getParkings() {
