@@ -1,6 +1,7 @@
 package com.parking.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -16,6 +17,10 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
     @JsonBackReference
     private Set<Parking> parkings;
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "customer_id")
+    @JsonManagedReference
+    private Customer customer;
 
     public Set<Parking> getParkings() {
         return parkings;
@@ -57,4 +62,11 @@ public class Car {
         this.producer = producer;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
 }

@@ -1,5 +1,6 @@
 package com.parking.models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GeneratorType;
 
@@ -19,8 +20,11 @@ public class Customer {
     private String gender;
     private String idCard;
     private String address;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
+    @JsonBackReference
     private List<Car> cars;
+
+
 
     public Integer getId() {
         return id;
