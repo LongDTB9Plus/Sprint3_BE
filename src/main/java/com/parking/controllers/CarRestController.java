@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 public class CarRestController {
     @Autowired
     CarService carService;
-
+//Long
     @GetMapping("get-car/{license}")
     public ResponseEntity<Car> getCarByLicense(@PathVariable String license) {
         Car car = carService.findCarByLicense(license);
@@ -22,7 +22,7 @@ public class CarRestController {
             return new ResponseEntity<>(car, HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-
+// Long
     @PostMapping("add-car")
     public ResponseEntity<Integer> addNewCar(@RequestBody CarDTO carDTO){
         Car car = carService.convertToCar(carDTO);
