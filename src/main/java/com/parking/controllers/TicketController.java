@@ -1,7 +1,9 @@
 package com.parking.controllers;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
+import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
 import com.parking.services.TicketService;
 
@@ -17,7 +19,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 /**
@@ -33,7 +34,13 @@ public class TicketController {
 
   @GetMapping(value = "all")
   public ResponseEntity<List<TicketDTO>> findAllTicket() {
-    return new ResponseEntity<>(HttpStatus.OK);
+
+    return null;
+  }
+
+  @GetMapping(value = "all2")
+  public ResponseEntity<List<Ticket>> findAllTicket2() {
+    return ResponseEntity.ok(ticketService.findAllTicket());
   }
 
   @GetMapping(value = "find/{ticketId}")

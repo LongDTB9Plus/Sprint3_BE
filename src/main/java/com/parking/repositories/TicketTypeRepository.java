@@ -11,4 +11,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface TicketTypeRepository extends JpaRepository<TicketType, Integer> {
   
+  TicketType findByDetail(String detail);
 }

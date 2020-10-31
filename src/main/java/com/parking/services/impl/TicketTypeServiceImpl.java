@@ -28,5 +28,14 @@ public class TicketTypeServiceImpl implements TicketTypeService {
     return ticketTypeRepository.findAll();
   }
 
-  
+  @Override
+  public void edit(Integer ticketTypeId) {
+    // TODO Auto-generated method stub
+
+  }
+
+  @Override
+  public TicketType findByDetail(String detail) {
+    return ticketTypeRepository.findByDetail(detail);
+  }
 }
