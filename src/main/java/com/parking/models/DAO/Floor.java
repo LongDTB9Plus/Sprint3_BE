@@ -1,7 +1,7 @@
 package com.parking.models.DAO;
 
 import javax.persistence.*;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 public class Floor {
@@ -13,10 +13,10 @@ public class Floor {
     private String nameFloor;
 
     @OneToMany(mappedBy="floor")
-    private Set<Zone> listZone;
+    private List<Zone> listZone;
 
     @OneToMany(mappedBy="floor")
-    private Set<ParkingLot> listParkingLot;
+    private List<ParkingLot> listParkingLot;
 
     public Floor() {
     }
@@ -37,19 +37,19 @@ public class Floor {
         this.nameFloor = nameFloor;
     }
 
-    public Set<Zone> getListZone() {
+    public List<Zone> getListZone() {
         return listZone;
     }
 
-    public void setListZone(Set<Zone> listZone) {
+    public void setListZone(List<Zone> listZone) {
         this.listZone = listZone;
     }
 
-    public Set<ParkingLot> getListParkingLot() {
+    public List<ParkingLot> getListParkingLot() {
         return listParkingLot;
     }
 
-    public void setListParkingLot(Set<ParkingLot> listParkingLot) {
+    public void setListParkingLot(List<ParkingLot> listParkingLot) {
         this.listParkingLot = listParkingLot;
     }
 }
