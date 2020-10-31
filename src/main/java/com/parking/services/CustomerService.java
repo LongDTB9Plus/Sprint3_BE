@@ -16,4 +16,10 @@ public interface CustomerService {
     Integer saveNewCustomer(Customer customer);
 
     Boolean checkCustomerEmailAndPhoneNumber(Customer customer);
+
+    CustomerDTO convertToCustomerDto(Customer customer);
+
+    Customer convertToCustomer(CustomerDTO customerDTO);
+
+    void delete(int id);
 }

@@ -23,8 +23,16 @@ public class CustomerRestController {
         return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
     @PostMapping("add-customer")
-    public ResponseEntity<Integer> create(@RequestBody CustomerDTO customerDTO){
-        customerService.saveCustomer(customerDTO);
-        return new ResponseEntity<>(customerDTO.getId(), HttpStatus.CREATED);
+    public ResponseEntity<Void> create(@RequestBody CustomerDTO customerDTO){
+        if (customerService.checkCustomerEmailAndPhoneNumber(customerService.convertToCustomer(customerDTO))){
+            customerService.saveCustomer(customerDTO);
+            return new ResponseEntity<>( HttpStatus.CREATED);
+        }
+        return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+    @DeleteMapping("delete-customer/{id}")
+    public ResponseEntity<Void> delete(@PathVariable int id){
+        customerService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

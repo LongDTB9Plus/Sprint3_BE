@@ -20,8 +20,8 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CarRepository carRepository;
-
-    CustomerDTO convertToCustomerDto(Customer customer) {
+    @Override
+    public CustomerDTO convertToCustomerDto(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
         customerDTO.setId(customer.getId());
         customerDTO.setNameCustomer(customer.getNameCustomer());
@@ -39,8 +39,8 @@ public class CustomerServiceImpl implements CustomerService {
         customerDTO.setCars(list);
         return customerDTO;
     }
-
-    Customer convertToCustomer(CustomerDTO customerDTO) {
+    @Override
+    public Customer convertToCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
         customer.setId(customerDTO.getId());
         customer.setNameCustomer(customerDTO.getNameCustomer());
@@ -57,6 +57,11 @@ public class CustomerServiceImpl implements CustomerService {
         }
         customer.setCars(cars);
         return customer;
+    }
+
+    @Override
+    public void delete(int id) {
+        customerRepository.deleteById(id);
     }
 
     @Override

@@ -20,6 +20,8 @@ public interface CarService {
 
     Integer addNewCar(Car car);
 
+    Car convertToCar(CarDTO carDTO);
+
 }
 
 

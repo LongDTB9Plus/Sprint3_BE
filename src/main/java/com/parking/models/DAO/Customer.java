@@ -1,6 +1,7 @@
 package com.parking.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GeneratorType;
 
@@ -23,7 +24,6 @@ public class Customer {
     @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
     @JsonBackReference
     private List<Car> cars;
-
 
 
     public Integer getId() {
