@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
+import com.parking.models.constant.ETicketStatus;
 import com.parking.repositories.TicketRepository;
 import com.parking.services.TicketService;
 
@@ -23,7 +24,9 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public List<Ticket> findAllTicket() {
-    return ticketRepository.findAll();
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_ENABLE.name()));
+    return ticketList;
   }
 
   @Override

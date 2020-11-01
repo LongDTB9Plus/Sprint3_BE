@@ -11,6 +11,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -50,4 +51,18 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         parkingLotDTO.setStatus(parkingLot.getStatusParkingLot());
         return parkingLotDTO;
     }
+
+    /**
+     * @author Thien: find parking lot by id
+     */
+    @Override
+    public ParkingLotDTO findById(Integer parkingLotId) {
+        Optional<ParkingLot> parkingLot = parkingLotRepository.findById(parkingLotId);
+        ParkingLotDTO parkingLotDTO = new ParkingLotDTO();
+        if(parkingLot.isPresent()) {
+            parkingLotDTO = convertParkingLotToDTO(parkingLot.get());
+        }
+        return parkingLotDTO;
+    }
+
 }
