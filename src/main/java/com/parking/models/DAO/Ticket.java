@@ -54,4 +54,52 @@ public class Ticket {
 
   @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
   private Set<Car> cars;
+
+  public Integer getTicketId() {
+    return ticketId;
+  }
+
+  public void setTicketId(Integer ticketId) {
+    this.ticketId = ticketId;
+  }
+
+  public String getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
+
+  public String getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(String endDate) {
+    this.endDate = endDate;
+  }
+
+  public String getTicketStatus() {
+    return ticketStatus;
+  }
+
+  public void setTicketStatus(String ticketStatus) {
+    this.ticketStatus = ticketStatus;
+  }
+
+  public TicketType getTicketType() {
+    return ticketType;
+  }
+
+  public void setTicketType(TicketType ticketType) {
+    this.ticketType = ticketType;
+  }
+
+  public Set<Car> getCars() {
+    return cars;
+  }
+
+  public void setCars(Set<Car> cars) {
+    this.cars = cars;
+  }
 }
