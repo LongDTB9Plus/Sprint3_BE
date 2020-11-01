@@ -5,6 +5,8 @@ import java.util.stream.Collectors;
 
 import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
+import com.parking.models.converters.TicketConverter;
+import com.parking.services.CustomerService;
 import com.parking.services.TicketService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,47 +31,57 @@ import org.springframework.web.bind.annotation.PutMapping;
 @RequestMapping(value = "/ticket")
 public class TicketController {
 
-  @Autowired
-  TicketService ticketService;
+    @Autowired
+    TicketService ticketService;
 
-  @GetMapping(value = "all")
-  public ResponseEntity<List<TicketDTO>> findAllTicket() {
+    @Autowired
+    TicketConverter ticketConverter;
 
-    return null;
-  }
+    @Autowired
+    CustomerService customerService;
 
-  @GetMapping(value = "all2")
-  public ResponseEntity<List<Ticket>> findAllTicket2() {
-    return ResponseEntity.ok(ticketService.findAllTicket());
-  }
+    @GetMapping(value = "all")
+    public ResponseEntity<List<TicketDTO>> findAllTicket() {
+        List<TicketDTO> result = ticketService
+                .findAllTicket()
+                .stream()
+                .map(ticket -> ticketConverter.convertToTicketDTO(ticket))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
 
-  @GetMapping(value = "find/{ticketId}")
-  public ResponseEntity<Void> findTicketById(@PathVariable Integer ticketId) {
-    return null;
-  }
+    @GetMapping(value = "get/{lisence}")
+    public ResponseEntity<String> findAllTicket2(@PathVariable String lisence) {
+        return ResponseEntity.ok(customerService.findCustomerNameByCarLicense(lisence));
+    }
 
-  @PostMapping(value = "create")
-  public ResponseEntity<Void> createTicked(@RequestBody TicketDTO ticketDTO) {
-    return null;
-  }
+    @GetMapping(value = "find/{ticketId}")
+    public ResponseEntity<Void> findTicketById(@PathVariable Integer ticketId) {
+        return null;
+    }
 
-  @PutMapping(value = "edit")
-  public ResponseEntity<Void> editTicket(@RequestBody TicketDTO ticketDTO) {
-    return null;
-  }
+    @PostMapping(value = "create")
+    public ResponseEntity<Void> createTicked(@RequestBody TicketDTO ticketDTO) {
+        return null;
+    }
 
-  @DeleteMapping(value = "delete/{ticketId")
-  public ResponseEntity<Void> deleteTicketById(@PathVariable Integer ticketId) {
-    return null;
-  }
+    @PutMapping(value = "edit")
+    public ResponseEntity<Void> editTicket(@RequestBody TicketDTO ticketDTO) {
+        return null;
+    }
 
-  @GetMapping(value = "expired")
-  public ResponseEntity<Void> handlingExpiredTicket(@RequestBody TicketDTO ticketDTO) {
-    return null;
-  }
+    @DeleteMapping(value = "delete/{ticketId")
+    public ResponseEntity<Void> deleteTicketById(@PathVariable Integer ticketId) {
+        return null;
+    }
 
-  @GetMapping(value="test")
-  public String test() {
-      return "Success!";
-  }
+    @GetMapping(value = "expired")
+    public ResponseEntity<Void> handlingExpiredTicket(@RequestBody TicketDTO ticketDTO) {
+        return null;
+    }
+
+    @GetMapping(value = "test")
+    public String test() {
+        return "Success!";
+    }
 }

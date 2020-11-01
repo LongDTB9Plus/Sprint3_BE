@@ -5,7 +5,7 @@ import com.parking.models.DTO.ParkingLotDTO;
 import com.parking.repositories.ParkingLotRepository;
 import com.parking.services.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
+//import org.springframework.security.access.method.P; // Thien ~ Line này bị lỗi nên phải comment
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;

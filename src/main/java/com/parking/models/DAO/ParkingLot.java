@@ -19,6 +19,13 @@ public class ParkingLot {
     @JoinColumn(name="zone_idZone", nullable=false)
     private Zone zone;
 
+    /**
+     * @author: Thien ~ Setup relationship with [Ticket]
+     */
+    @ManyToOne(targetEntity = Ticket.class)
+    @JoinColumn(name = "ticketId")
+    private Ticket ticket;
+
     public ParkingLot() {
     }
 
@@ -52,5 +59,16 @@ public class ParkingLot {
 
     public void setZone(Zone zone) {
         this.zone = zone;
+    }
+
+    /**
+     * @author: Thien ~ Setup getter setter
+     */
+    public Ticket getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
     }
 }

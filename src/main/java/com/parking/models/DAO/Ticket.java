@@ -14,10 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 
 /**
  * Author: Thien
@@ -26,7 +27,7 @@ import lombok.Data;
 @Entity
 @Table(name = "ticket")
 @JsonIdentityInfo(
-  generator = ObjectIdGenerators.PropertyGenerator.class, 
+  generator = ObjectIdGenerators.PropertyGenerator.class,
   property = "ticketId"
 )
 public class Ticket {
@@ -44,13 +45,13 @@ public class Ticket {
   @Column
   private String ticketStatus;
 
-  
+  @OneToMany(mappedBy = "ticket")
+  private Set<ParkingLot> parkingLots;
+
   @ManyToOne(targetEntity = TicketType.class)
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 
   @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
   private Set<Car> cars;
-
-
 }
