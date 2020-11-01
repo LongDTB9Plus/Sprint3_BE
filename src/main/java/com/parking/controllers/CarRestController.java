@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
-@Controller
+import java.util.List;
+
+@RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class CarRestController {
     @Autowired
@@ -33,4 +35,29 @@ public class CarRestController {
         else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
+
+//    quan
+    @GetMapping("/all-car")
+    public ResponseEntity<List<CarDTO>> allCar(){
+        return new ResponseEntity<>(carService.findAll(), HttpStatus.OK);
+    }
+
+//    quan
+    @GetMapping("car/{id}")
+    public ResponseEntity<CarDTO> getCarId(@PathVariable int id){
+        return new ResponseEntity<>(carService.findById(id), HttpStatus.OK);
+    }
+
+//    quan
+    @DeleteMapping("delete-car/{id}")
+    public ResponseEntity<Void> deleteCar(@PathVariable int id){
+        carService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+//    quan
+    @GetMapping("get-car-by-customer/{id}")
+    public ResponseEntity<List<CarDTO>> getCarByCustomer(@PathVariable Integer id){
+        return new ResponseEntity<>(carService.findCarByCustomer(id), HttpStatus.OK);
+    }
 }

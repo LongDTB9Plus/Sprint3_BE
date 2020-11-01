@@ -6,6 +6,7 @@ import com.parking.models.DTO.CarDTO;
 import com.parking.repositories.CarRepository;
 import com.parking.repositories.CustomerRepository;
 import com.parking.repositories.ParkingRepository;
+import com.parking.repositories.TicketRepository;
 import com.parking.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,6 +29,9 @@ public class CarServiceImpl implements CarService {
     @Autowired
     ParkingRepository parkingRepository;
 
+    @Autowired
+    TicketRepository ticketRepository;
+
     @Override
     public Car convertToCar(CarDTO carDTO){
         Car car = new Car();
@@ -37,6 +41,7 @@ public class CarServiceImpl implements CarService {
         }else car.setCarId(null);
         car.setColor(carDTO.getColor());
         car.setCustomer(customerRepository.findById(carDTO.getCustomerId()).orElse(null));
+        car.setType(carDTO.getType());
         car.setLicense(carDTO.getLicense());
         Set<Integer> list = carDTO.getParkings();
         Set<Parking> parkings = new HashSet<>();
@@ -44,6 +49,9 @@ public class CarServiceImpl implements CarService {
             parkings.add(parkingRepository.findById(id).orElse(null));
         }
         car.setParkings(parkings);
+        car.setProducer(carDTO.getProducer());
+        car.setTicket(ticketRepository.findById(carDTO.getTicket()).orElse(null));
+
         return car;
     }
     CarDTO convertToCarDto(Car car){
@@ -51,6 +59,7 @@ public class CarServiceImpl implements CarService {
         carDTO.setCarId(car.getCarId());
         carDTO.setColor(car.getColor());
         carDTO.setCustomerId(car.getCustomer().getId());
+        carDTO.setType(car.getType());
         carDTO.setLicense(car.getLicense());
         Set<Parking> parkings = car.getParkings();
         Set<Integer> set = new HashSet<>();
@@ -58,6 +67,8 @@ public class CarServiceImpl implements CarService {
             set.add(parking.getIdParking());
         }
         carDTO.setParkings(set);
+        carDTO.setProducer(car.getProducer());
+        carDTO.setTicket(car.getTicket().getTicketId());
         return carDTO;
     }
 
@@ -103,5 +114,11 @@ public class CarServiceImpl implements CarService {
             }
         }
         return 0;
+    }
+
+//quan
+    @Override
+    public List<CarDTO> findCarByCustomer(int customerId) {
+        return carRepository.findAllByCustomer(customerRepository.findById(customerId).orElse(null)).stream().map(this::convertToCarDto).collect(Collectors.toList());
     }
 }

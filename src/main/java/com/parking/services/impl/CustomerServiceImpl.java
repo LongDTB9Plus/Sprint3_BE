@@ -104,4 +104,13 @@ public class CustomerServiceImpl implements CustomerService {
         return (customerRepository.findAllByEmail(customer.getEmail()).isEmpty())
                 || (customerRepository.findAllByPhone(customer.getPhone()).isEmpty());
     }
+
+    /**
+     *
+     * @author: Thien ~ Query get customer name by car license
+     */
+    @Override
+    public String findCustomerNameByCarLicense(String license) {
+        return customerRepository.findCustomerNameByCarLicense(license);
+    }
 }

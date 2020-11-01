@@ -4,6 +4,8 @@ import javax.validation.constraints.NotNull;
 
 import lombok.Data;
 
+import java.util.Set;
+
 /**
  * Author: Thien
  */
@@ -23,23 +25,17 @@ public class TicketDTO {
   private String ticketStatus;
 
   @NotNull
-  private String ticketTypeDetail;
+  private String tickTypeDetail;
 
   @NotNull
   private double price;
 
   @NotNull
-  private String license;
+  private Set<Integer> parkingLots;
 
-  // @NotNull
-  // private String location;
-
-  // @NotNull
-  // private String zone;
-  
   @NotNull
-  private Integer carId;
+  private Set<String> carPlates;
 
-
-  
+  @NotNull
+  private String customerName;
 }

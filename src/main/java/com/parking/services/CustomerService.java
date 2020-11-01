@@ -24,5 +24,12 @@ public interface CustomerService {
 
     void delete(int id);
 
+
     Customer findCustomerByCar(Car car);
+    /**
+     *
+     * @author: Thien ~ Query get customer name by car license
+     */
+    String findCustomerNameByCarLicense(String license);
+
 }
