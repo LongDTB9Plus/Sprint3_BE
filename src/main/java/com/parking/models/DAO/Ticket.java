@@ -102,4 +102,12 @@ public class Ticket {
   public void setCars(Set<Car> cars) {
     this.cars = cars;
   }
+
+  public Set<ParkingLot> getParkingLots() {
+    return parkingLots;
+  }
+
+  public void setParkingLots(Set<ParkingLot> parkingLots) {
+    this.parkingLots = parkingLots;
+  }
 }
