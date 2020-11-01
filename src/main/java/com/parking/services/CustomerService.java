@@ -22,4 +22,10 @@ public interface CustomerService {
     Customer convertToCustomer(CustomerDTO customerDTO);
 
     void delete(int id);
+
+    /**
+     *
+     * @author: Thien ~ Query get customer name by car license
+     */
+    String findCustomerNameByCarLicense(String license);
 }
