@@ -25,16 +25,25 @@ public class TicketDTO {
   private String ticketStatus;
 
   @NotNull
-  private String tickTypeDetail;
+  private String ticketTypeDetail;
 
   @NotNull
   private double price;
 
-  @NotNull
-  private Set<Integer> parkingLots;
+//  @NotNull
+//  private Set<Integer> parkingLots;
 
   @NotNull
-  private Set<String> carPlates;
+  private Integer parkingLot;
+
+  @NotNull
+  private String floorName;
+
+  @NotNull
+  private String zoneName;
+
+  @NotNull
+  private String carPlate;
 
   @NotNull
   private String customerName;

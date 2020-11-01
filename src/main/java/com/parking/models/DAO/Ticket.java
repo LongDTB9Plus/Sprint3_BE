@@ -55,6 +55,8 @@ public class Ticket {
   @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
   private Set<Car> cars;
 
+
+  // Đang xài lombok thằng Quân viết cái gì đây ?
   public Integer getTicketId() {
     return ticketId;
   }
@@ -110,4 +112,5 @@ public class Ticket {
   public void setParkingLots(Set<ParkingLot> parkingLots) {
     this.parkingLots = parkingLots;
   }
+
 }

@@ -1,10 +1,12 @@
 package com.parking.models.converters;
 
 import com.parking.models.DAO.*;
+import com.parking.models.DTO.ParkingLotDTO;
 import com.parking.models.DTO.TicketDTO;
 import com.parking.repositories.CarRepository;
 import com.parking.repositories.ParkingLotRepository;
 import com.parking.services.CustomerService;
+import com.parking.services.ParkingLotService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,7 +22,7 @@ public class TicketConverter {
     CarRepository carRepository;
 
     @Autowired
-    ParkingLotRepository parkingLotRepository;
+    ParkingLotService parkingLotService;
 
     @Autowired
     CustomerService customerService;
@@ -62,42 +64,29 @@ public class TicketConverter {
 //    }
 
     public TicketDTO convertToTicketDTO(Ticket ticket) {
-
-        /**
-         * Thien: Convert set cars to set car plates
-         */
         Set<Car> cars = ticket.getCars();
-        Set<String> carPlates = new HashSet<>();
         String license = "";
         for(Car car: cars) {
-            carPlates.add(car.getLicense());
             license = car.getLicense();
         }
 
-        /**
-         * Thien: Convert parking lots set to parking lot id set
-         */
-        Set<ParkingLot> parkingLots = ticket.getParkingLots();
-        Set<Integer> parkingLotIds = new HashSet<>();
-
-        for(ParkingLot lot: parkingLots) {
-            parkingLotIds.add(lot.getIdParkingLot());
-        }
-
+        ParkingLotDTO parkingLotDTO = parkingLotService.findById(ticket.getTicketId());
 
         String customerName = customerService.findCustomerNameByCarLicense(license);
 
         TicketDTO ticketDTOResponse = new TicketDTO();
 
         ticketDTOResponse.setPrice(ticket.getTicketType().getPrice());
-        ticketDTOResponse.setParkingLots(parkingLotIds);
-        ticketDTOResponse.setCarPlates(carPlates);
+        ticketDTOResponse.setCarPlate(license);
         ticketDTOResponse.setStartDate(ticket.getStartDate());
         ticketDTOResponse.setEndDate(ticket.getEndDate());
         ticketDTOResponse.setTicketStatus(ticket.getTicketStatus());
-        ticketDTOResponse.setTickTypeDetail(ticket.getTicketType().getDetail());
+        ticketDTOResponse.setTicketTypeDetail(ticket.getTicketType().getDetail());
         ticketDTOResponse.setTicketId(ticket.getTicketId());
         ticketDTOResponse.setCustomerName(customerName);
+        ticketDTOResponse.setParkingLot(parkingLotDTO.getId());
+        ticketDTOResponse.setZoneName(parkingLotDTO.getNameZone());
+        ticketDTOResponse.setFloorName(parkingLotDTO.getNameFloor());
 
         return ticketDTOResponse;
     }
