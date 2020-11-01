@@ -1,5 +1,6 @@
 package com.parking.services;
 
+import com.parking.models.DAO.Car;
 import com.parking.models.DAO.Customer;
 import com.parking.models.DTO.CustomerDTO;
 import org.springframework.stereotype.Service;
@@ -23,9 +24,12 @@ public interface CustomerService {
 
     void delete(int id);
 
+
+    Customer findCustomerByCar(Car car);
     /**
      *
      * @author: Thien ~ Query get customer name by car license
      */
     String findCustomerNameByCarLicense(String license);
+
 }

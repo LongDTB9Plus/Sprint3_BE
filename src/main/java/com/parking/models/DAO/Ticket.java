@@ -104,5 +104,13 @@ public class Ticket {
   public void setCars(Set<Car> cars) {
     this.cars = cars;
   }
-  // Đang xài lombok thằng Quân viết cái gì đây ?
+
+  public Set<ParkingLot> getParkingLots() {
+    return parkingLots;
+  }
+
+  public void setParkingLots(Set<ParkingLot> parkingLots) {
+    this.parkingLots = parkingLots;
+  }
+
 }

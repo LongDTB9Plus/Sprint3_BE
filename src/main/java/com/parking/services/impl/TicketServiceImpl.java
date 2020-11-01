@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
 import com.parking.models.constant.ETicketStatus;
+import com.parking.models.converters.TicketConverter;
 import com.parking.repositories.TicketRepository;
 import com.parking.services.TicketService;
 
@@ -21,6 +22,9 @@ public class TicketServiceImpl implements TicketService {
 
   @Autowired
   TicketRepository ticketRepository;
+
+  @Autowired
+  TicketConverter ticketConverter;
 
   @Override
   public List<Ticket> findAllTicket() {
@@ -57,7 +61,14 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public TicketDTO parseTicketToDTO(Ticket ticket) {
-    return null;
+    return ticketConverter.convertToTicketDTO(ticket);
   }
-  
+
+
+//quan
+  @Override
+  public TicketDTO getById(int id) {
+    return ticketRepository.findById(id).map(this::parseTicketToDTO).orElse(null);
+  }
+
 }

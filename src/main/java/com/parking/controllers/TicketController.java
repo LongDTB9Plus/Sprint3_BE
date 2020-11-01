@@ -96,4 +96,10 @@ public class TicketController {
     public String test() {
         return "Success!";
     }
+
+//    quan
+    @GetMapping(value = "{id}")
+    public ResponseEntity<TicketDTO> findTicketById(@PathVariable int id){
+        return new ResponseEntity<>(ticketService.getById(id), HttpStatus.OK);
+    }
 }
