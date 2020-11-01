@@ -24,4 +24,7 @@ public interface TicketService {
   Ticket parseDTOtoTicket(TicketDTO ticketDTO);
 
   TicketDTO parseTicketToDTO(Ticket ticket);
+
+//  quan
+  TicketDTO getById(int id);
 }
