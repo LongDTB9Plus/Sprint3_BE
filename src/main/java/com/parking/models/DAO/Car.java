@@ -1,6 +1,7 @@
 package com.parking.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -21,6 +22,14 @@ public class Car {
     @JoinColumn(name = "customer_id")
     @JsonManagedReference
     private Customer customer;
+
+    /**
+     * @author: Thien ~ Setting relationship Car <-> Ticket
+     */
+    @JsonIgnore
+    @ManyToOne(targetEntity = Ticket.class, fetch = FetchType.LAZY)
+    @JoinColumn(name = "ticketId")
+    private Ticket ticket;
 
     public Set<Parking> getParkings() {
         return parkings;
@@ -69,4 +78,17 @@ public class Car {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
+    
+    /**
+     * 
+     * @author: Thien ~ Getter setter
+     */
+    public Ticket getTicket() {
+        return this.ticket;
+    }
+
+    public void setTicket(Ticket ticket) {
+        this.ticket = ticket;
+    }
+
 }

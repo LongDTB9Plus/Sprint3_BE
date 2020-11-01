@@ -22,8 +22,8 @@ public class TicketServiceImpl implements TicketService {
   TicketRepository ticketRepository;
 
   @Override
-  public List<TicketDTO> findAllTicket() {
-    return ticketRepository.findAll().stream().map(this::parseTicketToDTO).collect(Collectors.toList());
+  public List<Ticket> findAllTicket() {
+    return ticketRepository.findAll();
   }
 
   @Override

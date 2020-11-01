@@ -15,5 +15,9 @@ public interface TicketTypeService {
   List<TicketType> findAll();
 
   void save(TicketType ticketType);
+
+  void edit(Integer ticketTypeId);
+
+  TicketType findByDetail(String detail);
   
 }
