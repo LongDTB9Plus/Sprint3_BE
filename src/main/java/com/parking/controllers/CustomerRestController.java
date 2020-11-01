@@ -1,6 +1,9 @@
 package com.parking.controllers;
 
+import com.parking.models.DAO.Car;
+import com.parking.models.DAO.Customer;
 import com.parking.models.DTO.CustomerDTO;
+import com.parking.services.CarService;
 import com.parking.services.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,6 +17,8 @@ import java.util.List;
 public class CustomerRestController {
     @Autowired
     CustomerService customerService;
+    @Autowired
+    CarService carService;
     @GetMapping("/all-customer")
     public ResponseEntity<List<CustomerDTO>> getListCustomer(){
         return new ResponseEntity<>(customerService.findAll(), HttpStatus.OK);
@@ -34,5 +39,12 @@ public class CustomerRestController {
     public ResponseEntity<Void> delete(@PathVariable int id){
         customerService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+    @GetMapping("find-customer/{license}")
+    public ResponseEntity<Customer> findCustomerByCar(@PathVariable String license){
+        Car car = carService.findCarByLicense(license);
+        if (car != null){
+            return new ResponseEntity<>(customerService.findCustomerByCar(car), HttpStatus.OK);
+        }else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 }

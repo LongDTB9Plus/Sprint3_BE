@@ -1,13 +1,9 @@
 package com.parking.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GeneratorType;
 
 import javax.persistence.*;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 public class Customer {
@@ -94,7 +90,7 @@ public class Customer {
         return cars;
     }
 
-    public void setCars(List    <Car> cars) {
+    public void setCars(List<Car> cars) {
         this.cars = cars;
     }
 }

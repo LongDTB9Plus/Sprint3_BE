@@ -65,6 +65,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findCustomerByCar(Car car) {
+        return customerRepository.findAllByCars(car);
+    }
+
+    @Override
     public List<CustomerDTO> findAll() {
         return customerRepository.findAll().stream().map(this::convertToCustomerDto).collect(Collectors.toList());
     }
