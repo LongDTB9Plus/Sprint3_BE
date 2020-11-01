@@ -18,6 +18,10 @@ public class Car {
     @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
     @JsonBackReference
     private Set<Parking> parkings;
+
+//    quan
+    private String type;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id")
     @JsonManagedReference
@@ -91,4 +95,11 @@ public class Car {
         this.ticket = ticket;
     }
 
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
 }
