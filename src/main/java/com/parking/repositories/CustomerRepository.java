@@ -13,7 +13,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findAllByPhone (String phone);
     Customer findAllByCars (Car car);
 
-
     /**
      *
      * @author: Thien ~ Query get customer name by car license
@@ -26,5 +25,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                     "where car.license = ?1",
             nativeQuery = true)
     String findCustomerNameByCarLicense(String license);
-
 }

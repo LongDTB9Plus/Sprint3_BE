@@ -52,8 +52,9 @@ public class Ticket {
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 
-  @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
-  private Set<Car> cars;
+  @ManyToOne(targetEntity = Car.class)
+  @JoinColumn(name = "carId", nullable = false)
+  private Car car;
 
 
   // Đang xài lombok thằng Quân viết cái gì đây ?
@@ -97,12 +98,12 @@ public class Ticket {
     this.ticketType = ticketType;
   }
 
-  public Set<Car> getCars() {
-    return cars;
+  public Car getCar() {
+    return car;
   }
 
-  public void setCars(Set<Car> cars) {
-    this.cars = cars;
+  public void setCar(Car car) {
+    this.car = car;
   }
 
   public Set<ParkingLot> getParkingLots() {
