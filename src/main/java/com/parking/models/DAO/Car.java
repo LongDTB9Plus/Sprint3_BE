@@ -15,6 +15,9 @@ public class Car {
     private String license;
     private String color;
     private String producer;
+    @OneToMany(mappedBy = "car")
+    private Set<Parking> parkings;
+
     @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
     @JsonBackReference
     private Set<Parking> parkings;

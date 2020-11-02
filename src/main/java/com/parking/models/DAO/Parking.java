@@ -13,6 +13,9 @@ public class Parking {
     private Date dateIn;
     private Date dateOut;
     private Boolean status;
+    @ManyToOne
+    @JoinColumn(name = "car_id")
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "car_id")
     @JsonManagedReference
