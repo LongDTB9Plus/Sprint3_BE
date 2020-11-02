@@ -121,4 +121,9 @@ public class CarServiceImpl implements CarService {
     public List<CarDTO> findCarByCustomer(int customerId) {
         return carRepository.findAllByCustomer(customerRepository.findById(customerId).orElse(null)).stream().map(this::convertToCarDto).collect(Collectors.toList());
     }
+// Chau
+    @Override
+    public List<CarDTO> findAllCarByType(String type) {
+        return carRepository.findAllByType(type).stream().map(this::convertToCarDto).collect(Collectors.toList());
+    }
 }
