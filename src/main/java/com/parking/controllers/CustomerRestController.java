@@ -49,6 +49,7 @@ public class CustomerRestController {
     public ResponseEntity<Customer> findCustomerByCar(@PathVariable String license){
         Car car = carService.findCarByLicense(license);
         if (car != null){
+//            return new ResponseEntity<>(car,HttpStatus.OK);
             return new ResponseEntity<>(customerService.findCustomerByCar(car), HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }

@@ -1,13 +1,14 @@
 package com.parking.models.DAO;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "carId")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -15,8 +16,8 @@ public class Car {
     private String license;
     private String color;
     private String producer;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @OneToMany(mappedBy = "car",cascade = CascadeType.MERGE)
+//    @JsonBackReference
     private Set<Parking> parkings;
 
 //    quan
