@@ -1,5 +1,7 @@
 package com.parking.models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -13,6 +15,10 @@ public class Parking {
     private Boolean status;
     @ManyToOne
     @JoinColumn(name = "car_id")
+
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "car_id")
+    @JsonManagedReference
     private Car car;
 
     public Car getCar() {
