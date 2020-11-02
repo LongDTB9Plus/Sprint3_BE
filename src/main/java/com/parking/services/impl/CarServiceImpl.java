@@ -2,6 +2,7 @@ package com.parking.services.impl;
 
 import com.parking.models.DAO.Car;
 import com.parking.models.DAO.Parking;
+import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.CarDTO;
 import com.parking.repositories.CarRepository;
 import com.parking.repositories.CustomerRepository;
@@ -50,7 +51,15 @@ public class CarServiceImpl implements CarService {
         }
         car.setParkings(parkings);
         car.setProducer(carDTO.getProducer());
-        car.setTicket(ticketRepository.findById(carDTO.getTicket()).orElse(null));
+
+        /**
+         * @author: Thien: Nếu chỗ này lỗi - Liên hệ Thiện
+         */
+        Set<Ticket> tickets = new HashSet<>();
+
+        Ticket ticket = ticketRepository.findById(carDTO.getTicket()).orElse(null);
+        tickets.add(ticket);
+        car.setTickets(tickets);
 
         return car;
     }
@@ -68,7 +77,7 @@ public class CarServiceImpl implements CarService {
         }
         carDTO.setParkings(set);
         carDTO.setProducer(car.getProducer());
-        carDTO.setTicket(car.getTicket().getTicketId());
+//        carDTO.setTicket(car.getTicket().getTicketId());
         return carDTO;
     }
 

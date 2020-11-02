@@ -64,26 +64,17 @@ public class TicketConverter {
 //    }
 
     public TicketDTO convertToTicketDTO(Ticket ticket) {
-        Set<Car> cars = ticket.getCars();
-        String license = "";
-        for(Car car: cars) {
-            license = car.getLicense();
-        }
-
         ParkingLotDTO parkingLotDTO = parkingLotService.findById(ticket.getTicketId());
-
-        String customerName = customerService.findCustomerNameByCarLicense(license);
-
         TicketDTO ticketDTOResponse = new TicketDTO();
 
         ticketDTOResponse.setPrice(ticket.getTicketType().getPrice());
-        ticketDTOResponse.setCarPlate(license);
+        ticketDTOResponse.setCarPlate(ticket.getCar().getLicense());
         ticketDTOResponse.setStartDate(ticket.getStartDate());
         ticketDTOResponse.setEndDate(ticket.getEndDate());
         ticketDTOResponse.setTicketStatus(ticket.getTicketStatus());
         ticketDTOResponse.setTicketTypeDetail(ticket.getTicketType().getDetail());
         ticketDTOResponse.setTicketId(ticket.getTicketId());
-        ticketDTOResponse.setCustomerName(customerName);
+        ticketDTOResponse.setCustomerName(ticket.getCar().getCustomer().getNameCustomer());
         ticketDTOResponse.setParkingLot(parkingLotDTO.getId());
         ticketDTOResponse.setZoneName(parkingLotDTO.getNameZone());
         ticketDTOResponse.setFloorName(parkingLotDTO.getNameFloor());

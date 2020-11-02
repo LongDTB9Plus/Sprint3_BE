@@ -31,9 +31,8 @@ public class Car {
      * @author: Thien ~ Setting relationship Car <-> Ticket
      */
     @JsonIgnore
-    @ManyToOne(targetEntity = Ticket.class, fetch = FetchType.LAZY)
-    @JoinColumn(name = "ticketId")
-    private Ticket ticket;
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)
+    private Set<Ticket> tickets;
 
     public Set<Parking> getParkings() {
         return parkings;
@@ -82,17 +81,17 @@ public class Car {
     public void setCustomer(Customer customer) {
         this.customer = customer;
     }
-    
+
     /**
      * 
      * @author: Thien ~ Getter setter
      */
-    public Ticket getTicket() {
-        return this.ticket;
+    public Set<Ticket> getTickets() {
+        return tickets;
     }
 
-    public void setTicket(Ticket ticket) {
-        this.ticket = ticket;
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
     }
 
     public String getType() {
