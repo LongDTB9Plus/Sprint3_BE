@@ -30,13 +30,17 @@ public class UserPrincipal implements UserDetails, Serializable {
 
     private String phoneNumber;
 
+    private String gender;
+
+    private String birthday;
+
     private Collection<? extends GrantedAuthority> authorities;
 
     public UserPrincipal() {
     }
 
     public UserPrincipal(Integer id, String username, String password, String fullName, String email, String address,
-                         String phoneNumber, Collection<? extends GrantedAuthority> authorities) {
+                         String phoneNumber,String gender,String birthday, Collection<? extends GrantedAuthority> authorities) {
         this.id = id;
         this.username = username;
         this.password = password;
@@ -44,6 +48,8 @@ public class UserPrincipal implements UserDetails, Serializable {
         this.email = email;
         this.address = address;
         this.phoneNumber = phoneNumber;
+        this.gender=gender;
+        this.birthday=birthday;
         this.authorities = authorities;
     }
 
@@ -57,6 +63,8 @@ public class UserPrincipal implements UserDetails, Serializable {
                 user.getPassword(),
                 user.getFullName(),
                 user.getEmail(),
+                user.getBirthday(),
+                user.getGender(),
                 user.getAddress(),
                 user.getPhone(),
                 authorities
@@ -150,6 +158,21 @@ public class UserPrincipal implements UserDetails, Serializable {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
+    }
 
     public void setAuthorities(Collection<? extends GrantedAuthority> authorities) {
         this.authorities = authorities;

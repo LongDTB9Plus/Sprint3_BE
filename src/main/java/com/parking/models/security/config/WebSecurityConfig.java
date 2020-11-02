@@ -33,9 +33,10 @@ import java.util.Set;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
+    //config in application.properties
     @Value("${app.admin.username}")
     private String adminUsername;
-
+    //config in application.properties
     @Value("${app.admin.password}")
     private String adminPassword;
 
@@ -67,6 +68,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     ApplicationRunner init(RoleRepository roleRepository, UserRepository userRepository) {
         System.out.println("Created !");
+        // create role and user in database
         return args -> {
             if (roleRepository.findAll().isEmpty()) {
 
@@ -88,12 +90,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
                 admin.setUsername(adminUsername);
                 admin.setPassword(passwordEncoder.encode(adminPassword));
+                admin.setBirthday("2020-10-30");
                 admin.setFullName("ADMIN");
                 admin.setEmail("admin@gmail.com");
+                admin.setGender("Nam");
                 admin.setAddress("Da Nang");
                 admin.setPhone("0123456799");
                 admin.setRoles(roles);
-
                 userRepository.save(admin);
 
                 Set<Role> rolesForMember = new HashSet<>();
@@ -103,12 +106,14 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
 
                 User member = new User();
-                member.setUsername("member");
+                member.setUsername("member@gmail.com");
                 member.setPassword(passwordEncoder.encode("123123"));
                 member.setFullName("MEMBER");
+                member.setBirthday("2020-10-30");
                 member.setEmail("member@gmail.com");
                 member.setAddress("Da Nang");
                 member.setPhone("0123456799");
+                member.setGender("Nam");
                 member.setRoles(rolesForMember);
                 userRepository.save(member);
             }
@@ -133,7 +138,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
         http
                 .addFilterBefore(
                         authenticationFilter(),
