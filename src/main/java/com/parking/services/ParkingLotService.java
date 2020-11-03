@@ -10,4 +10,9 @@ public interface ParkingLotService {
     void addParkingLot(ParkingLot parkingLot);
     void deleteParkingLot(Integer id);
     boolean checkParkingLotStatus(Integer id);
+
+    /**
+     * @author: Thien
+     */
+    ParkingLotDTO findById(Integer id);
 }

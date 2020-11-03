@@ -1,12 +1,14 @@
 package com.parking.models.DAO;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.*;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "carId")
 public class Car {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -14,13 +16,24 @@ public class Car {
     private String license;
     private String color;
     private String producer;
-    @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @OneToMany(mappedBy = "car",cascade = CascadeType.MERGE)
+//    @JsonBackReference
     private Set<Parking> parkings;
+
+//    quan
+    private String type;
+
     @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "customer_id")
     @JsonManagedReference
     private Customer customer;
+
+    /**
+     * @author: Thien ~ Setting relationship Car <-> Ticket
+     */
+    @JsonIgnore
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)
+    private Set<Ticket> tickets;
 
     public Set<Parking> getParkings() {
         return parkings;
@@ -68,5 +81,25 @@ public class Car {
 
     public void setCustomer(Customer customer) {
         this.customer = customer;
+    }
+
+    /**
+     * 
+     * @author: Thien ~ Getter setter
+     */
+    public Set<Ticket> getTickets() {
+        return tickets;
+    }
+
+    public void setTickets(Set<Ticket> tickets) {
+        this.tickets = tickets;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

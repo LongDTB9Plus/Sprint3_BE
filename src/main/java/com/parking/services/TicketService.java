@@ -7,11 +7,11 @@ import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
 
 /**
- * Author: Thien
+ * @author: Thien
  */
 public interface TicketService {
 
-  List<TicketDTO> findAllTicket();
+  List<Ticket> findAllTicket();
 
   Optional<Ticket> findTicketById(Integer ticketId);
 
@@ -24,4 +24,7 @@ public interface TicketService {
   Ticket parseDTOtoTicket(TicketDTO ticketDTO);
 
   TicketDTO parseTicketToDTO(Ticket ticket);
+
+//  quan
+  TicketDTO getById(int id);
 }

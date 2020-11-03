@@ -1,5 +1,6 @@
 package com.parking.models.security.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.parking.models.DAO.Rank;
 import com.parking.models.security.utils.Role;
 
@@ -20,7 +21,7 @@ public class User {
     private String birthday;
     private String phone;
     private String address;
-
+    @JsonIgnore
     @ManyToMany(fetch = FetchType.LAZY, cascade = CascadeType.DETACH)
     @JoinTable (
             name ="user_role",

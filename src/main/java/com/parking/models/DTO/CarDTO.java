@@ -8,7 +8,17 @@ public class CarDTO {
     private String color;
     private String producer;
     private Integer customerId;
+    private String type;
     Set<Integer> parkings;
+    private Integer ticket;
+
+    public Integer getTicket() {
+        return ticket;
+    }
+
+    public void setTicket(Integer ticket) {
+        this.ticket = ticket;
+    }
 
     public Integer getCustomerId() {
         return customerId;
@@ -56,5 +66,13 @@ public class CarDTO {
 
     public void setParkings(Set<Integer> parkings) {
         this.parkings = parkings;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }

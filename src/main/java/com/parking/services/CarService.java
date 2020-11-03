@@ -22,6 +22,11 @@ public interface CarService {
 
     Car convertToCar(CarDTO carDTO);
 
+//    quan
+    List<CarDTO> findCarByCustomer(int customerId);
+
+    //Chau
+    List<CarDTO> findAllCarByType(String type);
 }
 
 

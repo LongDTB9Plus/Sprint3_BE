@@ -65,6 +65,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer findCustomerByCar(Car car) {
+        return customerRepository.findAllByCars(car);
+    }
+
+    @Override
     public List<CustomerDTO> findAll() {
         return customerRepository.findAll().stream().map(this::convertToCustomerDto).collect(Collectors.toList());
     }
@@ -98,5 +103,14 @@ public class CustomerServiceImpl implements CustomerService {
     public Boolean checkCustomerEmailAndPhoneNumber(Customer customer) {
         return (customerRepository.findAllByEmail(customer.getEmail()).isEmpty())
                 || (customerRepository.findAllByPhone(customer.getPhone()).isEmpty());
+    }
+
+    /**
+     *
+     * @author: Thien ~ Query get customer name by car license
+     */
+    @Override
+    public String findCustomerNameByCarLicense(String license) {
+        return customerRepository.findCustomerNameByCarLicense(license);
     }
 }
