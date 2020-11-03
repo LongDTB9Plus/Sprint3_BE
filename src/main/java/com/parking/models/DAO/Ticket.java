@@ -42,6 +42,7 @@ public class Ticket {
   @ManyToOne(targetEntity = TicketType.class)
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
+
 //quan
   @ManyToOne(targetEntity = Car.class, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
 //
