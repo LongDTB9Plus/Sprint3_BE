@@ -44,9 +44,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     private ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot){
         ParkingLotDTO parkingLotDTO = new ParkingLotDTO();
         parkingLotDTO.setId(parkingLot.getIdParkingLot());
-        parkingLotDTO.setIdFloor(parkingLot.getFloor().getIdFloor());
+        parkingLotDTO.setIdFloor(parkingLot.getZone().getFloor().getIdFloor());
         parkingLotDTO.setIdZone(parkingLot.getZone().getIdZone());
-        parkingLotDTO.setNameFloor(parkingLot.getFloor().getNameFloor());
+        parkingLotDTO.setNameFloor(parkingLot.getZone().getFloor().getNameFloor());
         parkingLotDTO.setNameZone(parkingLot.getZone().getZoneName());
         parkingLotDTO.setStatus(parkingLot.getStatusParkingLot());
         return parkingLotDTO;
