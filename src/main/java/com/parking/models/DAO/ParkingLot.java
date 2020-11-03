@@ -12,10 +12,6 @@ public class ParkingLot {
     private Boolean statusParkingLot;
 
     @ManyToOne
-    @JoinColumn(name="floor_idFloor", nullable=false)
-    private Floor floor;
-
-    @ManyToOne
     @JoinColumn(name="zone_idZone", nullable=false)
     private Zone zone;
 
@@ -38,13 +34,6 @@ public class ParkingLot {
         this.statusParkingLot = statusParkingLot;
     }
 
-    public Floor getFloor() {
-        return floor;
-    }
-
-    public void setFloor(Floor floor) {
-        this.floor = floor;
-    }
 
     public Zone getZone() {
         return zone;
