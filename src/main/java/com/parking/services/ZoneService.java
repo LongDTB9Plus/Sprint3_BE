@@ -7,7 +7,7 @@ import com.parking.models.DTO.ZoneDTO;
 import java.util.List;
 
 public interface ZoneService {
-    List<ZoneDTO> getAllZoneDTO();
+    List<ZoneDTO> getAllZoneDTO(Integer id);
     void addZone(Zone zone);
     void deleteZone(Integer id);
 }
