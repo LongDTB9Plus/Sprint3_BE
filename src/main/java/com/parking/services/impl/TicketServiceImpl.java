@@ -40,9 +40,8 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
-  public void createTicket(TicketDTO ticketDTO) {
-    // TODO Auto-generated method stub
-
+  public void createTicket(Ticket ticket) {
+    ticketRepository.save(ticket);
   }
 
   @Override

@@ -1,9 +1,11 @@
 package com.parking.controllers;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import com.parking.models.DAO.ParkingLot;
 import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.ParkingLotDTO;
 import com.parking.models.DTO.TicketDTO;
@@ -73,7 +75,9 @@ public class TicketController {
 
     @PostMapping(value = "create")
     public ResponseEntity<Void> createTicked(@RequestBody TicketDTO ticketDTO) {
-        return null;
+        Ticket ticket = ticketConverter.convertToTicket(ticketDTO);
+        ticketService.createTicket(ticket);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "edit")
@@ -112,5 +116,11 @@ public class TicketController {
     @GetMapping(value = "{id}")
     public ResponseEntity<TicketDTO> findTicketById(@PathVariable int id) {
         return new ResponseEntity<>(ticketService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "lot/{id}")
+    public ResponseEntity<ParkingLot> findLot(@PathVariable int id) {
+        Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(id);
+        return parkingLotOptional.map(parkingLot -> new ResponseEntity<>(parkingLot, HttpStatus.OK)).orElse(null);
     }
 }
