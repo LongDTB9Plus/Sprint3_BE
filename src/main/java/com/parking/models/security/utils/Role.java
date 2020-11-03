@@ -25,6 +25,9 @@ public class Role implements Serializable {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "roles", cascade = CascadeType.DETACH)
     Set<User> userSet = new HashSet<User>();
 
+    public Role() {
+    }
+
     public Role(ERoleName eRoleName) {
         this.roleName = eRoleName;
     }

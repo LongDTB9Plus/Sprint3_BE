@@ -60,4 +60,9 @@ public class CarRestController {
     public ResponseEntity<List<CarDTO>> getCarByCustomer(@PathVariable Integer id){
         return new ResponseEntity<>(carService.findCarByCustomer(id), HttpStatus.OK);
     }
+// Chau
+    @GetMapping("getAllCarByType/{type}")
+    public ResponseEntity<List<CarDTO>> getAllCarByType(@PathVariable String type){
+        return new ResponseEntity<>(carService.findAllCarByType(type), HttpStatus.OK);
+    }
 }

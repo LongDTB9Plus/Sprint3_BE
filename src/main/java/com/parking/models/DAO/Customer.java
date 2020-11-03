@@ -1,11 +1,16 @@
 package com.parking.models.DAO;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "id")
 public class Customer {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -17,10 +22,9 @@ public class Customer {
     private String gender;
     private String idCard;
     private String address;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.MERGE)
-    @JsonBackReference
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.DETACH)
+//    @JsonBackReference
     private List<Car> cars;
-
 
     public Integer getId() {
         return id;

@@ -25,5 +25,4 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                     "where car.license = ?1",
             nativeQuery = true)
     String findCustomerNameByCarLicense(String license);
-
 }
