@@ -16,4 +16,6 @@ public interface ZoneService {
      * @author Thien: Declare query find zone by zone name
      */
     Optional<Zone> findByZoneName(String zoneName);
+
+    Zone getZoneById(Integer id);
 }
