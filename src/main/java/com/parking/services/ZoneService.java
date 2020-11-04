@@ -10,4 +10,5 @@ public interface ZoneService {
     List<ZoneDTO> getAllZoneDTO(Integer id);
     void addZone(Zone zone);
     void deleteZone(Integer id);
+    Zone getZoneById(Integer id);
 }

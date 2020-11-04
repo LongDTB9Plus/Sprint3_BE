@@ -44,7 +44,26 @@ public class ParkingLotRestController {
     }
 
     @PostMapping("/saveParkingLot")
-    public void saveParkingLot(@RequestBody ParkingLot parkingLot){
+    public void saveParkingLot(@RequestBody ParkingLotDTO parkingLotDTO){
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setStatusParkingLot(true);
+        parkingLot.setIdParkingLot(parkingLotDTO.getId());
+        Zone zone = zoneService.getZoneById(parkingLotDTO.getIdZone());
+        parkingLot.setZone(zone);
+        parkingLotService.addParkingLot(parkingLot);
+    }
+
+    @PostMapping("/editParkingLot")
+    public void editParkingLot(@RequestBody ParkingLotDTO parkingLotDTO){
+        ParkingLot parkingLot = new ParkingLot();
+        parkingLot.setIdParkingLot(parkingLotDTO.getId());
+        if(parkingLotDTO.getStatus().equals("Đã có xe")){
+            parkingLot.setStatusParkingLot(false);
+        }else {
+            parkingLot.setStatusParkingLot(true);
+        }
+        Zone zone = zoneService.getZoneById(parkingLotDTO.getIdZone());
+        parkingLot.setZone(zone);
         parkingLotService.addParkingLot(parkingLot);
     }
 
@@ -59,5 +78,10 @@ public class ParkingLotRestController {
     @PostMapping("/saveFloor")
     public void saveFloor(@RequestBody Floor floor){
         floorService.addFloor(floor);
+    }
+
+    @GetMapping("/getParkingLotById/{id}")
+    public ResponseEntity<ParkingLotDTO> getParkingLotById(@PathVariable Integer id){
+        return new ResponseEntity<>(parkingLotService.findById(id), HttpStatus.OK);
     }
 }
