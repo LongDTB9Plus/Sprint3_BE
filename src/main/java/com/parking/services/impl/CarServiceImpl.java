@@ -68,7 +68,7 @@ public class CarServiceImpl implements CarService {
         }
         carDTO.setParkings(set);
         carDTO.setProducer(car.getProducer());
-        carDTO.setTicket(car.getTicket().getTicketId());
+//        carDTO.setTicket(car.getTicket().getTicketId());
         return carDTO;
     }
 
