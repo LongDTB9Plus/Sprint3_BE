@@ -16,7 +16,7 @@ public interface TicketService {
 
   Optional<Ticket> findTicketById(Integer ticketId);
 
-  void createTicket(TicketDTO ticketDTO);
+  void createTicket(Ticket ticket);
 
   void editTicket(TicketDTO ticketDTO);
 
