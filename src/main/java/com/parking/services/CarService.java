@@ -27,6 +27,9 @@ public interface CarService {
 
     //Chau
     List<CarDTO> findAllCarByType(String type);
+
+//    quan
+    void editCar(CarDTO carDTO);
 }
 
 

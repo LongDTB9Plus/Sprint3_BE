@@ -2,16 +2,7 @@ package com.parking.models.DAO;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -52,7 +43,9 @@ public class Ticket {
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 
-  @ManyToOne(targetEntity = Car.class)
+//quan
+  @ManyToOne(targetEntity = Car.class, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+//
   @JoinColumn(name = "carId", nullable = false)
   private Car car;
 

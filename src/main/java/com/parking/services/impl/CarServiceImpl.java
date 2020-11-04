@@ -56,9 +56,10 @@ public class CarServiceImpl implements CarService {
          * @author: Thien: Nếu chỗ này lỗi - Liên hệ Thiện
          */
         Set<Ticket> tickets = new HashSet<>();
-
-        Ticket ticket = ticketRepository.findById(carDTO.getTicket()).orElse(null);
-        tickets.add(ticket);
+        Set<Integer> integers = carDTO.getTicket();
+        for (Integer integer: integers){
+            tickets.add(ticketRepository.findById(integer).orElse(null));
+        }
         car.setTickets(tickets);
 
         return car;
@@ -77,7 +78,12 @@ public class CarServiceImpl implements CarService {
         }
         carDTO.setParkings(set);
         carDTO.setProducer(car.getProducer());
-//        carDTO.setTicket(car.getTicket().getTicketId());
+        Set<Ticket> ticketList = car.getTickets();
+        Set<Integer> integers = new HashSet<>();
+        for (Ticket ticket: ticketList){
+            integers.add(ticket.getTicketId());
+        }
+        carDTO.setTicket(integers);
         return carDTO;
     }
 
@@ -134,5 +140,10 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> findAllCarByType(String type) {
         return carRepository.findAllByType(type).stream().map(this::convertToCarDto).collect(Collectors.toList());
+    }
+//quan
+    @Override
+    public void editCar(CarDTO carDTO) {
+        carRepository.save(convertToCar(carDTO));
     }
 }

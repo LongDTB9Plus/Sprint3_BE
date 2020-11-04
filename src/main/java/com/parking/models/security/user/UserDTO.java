@@ -10,7 +10,7 @@ public class UserDTO {
     private String birthday;
     private String phone;
     private String address;
-    private String rank;
+    private Integer rank;
 
     public Integer getUserId() {
         return userId;
@@ -76,11 +76,11 @@ public class UserDTO {
         this.address = address;
     }
 
-    public String getRank() {
+    public Integer getRank() {
         return rank;
     }
 
-    public void setRank(String rank) {
+    public void setRank(Integer rank) {
         this.rank = rank;
     }
 

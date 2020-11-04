@@ -4,6 +4,7 @@ import com.parking.models.DAO.ParkingLot;
 import com.parking.models.DTO.ParkingLotDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface ParkingLotService {
     List<ParkingLotDTO> getAllParkingLot();
@@ -15,4 +16,6 @@ public interface ParkingLotService {
      * @author: Thien
      */
     ParkingLotDTO findById(Integer id);
+
+    Optional<ParkingLot> findParkingLotEntityById(Integer id);
 }

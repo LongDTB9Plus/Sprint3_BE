@@ -40,9 +40,14 @@ public class ParkingLotRestController {
         return new ResponseEntity<>(parkingLotService.getAllParkingLot(), HttpStatus.OK);
     }
 
-    @GetMapping("/getAllZone")
-    public ResponseEntity<List<ZoneDTO>> getAllZone() {
-        return new ResponseEntity<>(zoneService.getAllZoneDTO(), HttpStatus.OK);
+//    @GetMapping("/getAllZone")
+//    public ResponseEntity<List<ZoneDTO>> getAllZone() {
+//        return new ResponseEntity<>(zoneService.getAllZoneDTO(), HttpStatus.OK);
+//    }
+
+    @GetMapping("/getAllZone/{id}")
+    public ResponseEntity<List<ZoneDTO>> getAllZoneByFloor(@PathVariable Integer id){
+        return new ResponseEntity<>(zoneService.getAllZoneDTO(id), HttpStatus.OK);
     }
 
     @GetMapping("/getAllFloor")

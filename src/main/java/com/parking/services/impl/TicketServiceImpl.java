@@ -1,5 +1,6 @@
 package com.parking.services.impl;
 
+import java.util.Set;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -39,9 +40,8 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
-  public void createTicket(TicketDTO ticketDTO) {
-    // TODO Auto-generated method stub
-
+  public void createTicket(Ticket ticket) {
+    ticketRepository.save(ticket);
   }
 
   @Override
@@ -51,7 +51,11 @@ public class TicketServiceImpl implements TicketService {
 
   @Override
   public void deleteTicket(Integer ticketId) {
-      // TODO Auto-generated method stub
+      Optional<Ticket> ticket = ticketRepository.findById(ticketId);
+      ticket.ifPresent(value -> {
+        value.setTicketStatus(ETicketStatus.TICKET_DELETED.name());
+        ticketRepository.save(value);
+      });
   }
 
   @Override
@@ -64,8 +68,13 @@ public class TicketServiceImpl implements TicketService {
     return ticketConverter.convertToTicketDTO(ticket);
   }
 
+  @Override
+  public Set<Integer> findTicketByLicense(String license) {
+    return ticketRepository.findTicketByLicense(license);
+  }
 
-//quan
+
+  //quan
   @Override
   public TicketDTO getById(int id) {
     return ticketRepository.findById(id).map(this::parseTicketToDTO).orElse(null);
