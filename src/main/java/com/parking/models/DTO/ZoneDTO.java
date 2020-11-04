@@ -8,6 +8,7 @@ public class ZoneDTO {
     private Integer positionX;
     private Integer positionY;
     private Integer direction;
+    private Integer idFloor;
 
     private List<Integer> listParkingLot;
 
@@ -60,5 +61,13 @@ public class ZoneDTO {
 
     public void setListParkingLot(List<Integer> listParkingLot) {
         this.listParkingLot = listParkingLot;
+    }
+
+    public Integer getIdFloor() {
+        return idFloor;
+    }
+
+    public void setIdFloor(Integer idFloor) {
+        this.idFloor = idFloor;
     }
 }
