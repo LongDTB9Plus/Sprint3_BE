@@ -6,7 +6,7 @@ public class ParkingLotDTO {
     private String nameFloor;
     private Integer idZone;
     private String nameZone;
-    private Boolean status;
+    private String status;
 //  license: string;
 
     public ParkingLotDTO() {
@@ -52,11 +52,11 @@ public class ParkingLotDTO {
         this.nameZone = nameZone;
     }
 
-    public Boolean getStatus() {
+    public String getStatus() {
         return status;
     }
 
-    public void setStatus(Boolean status) {
+    public void setStatus(String status) {
         this.status = status;
     }
 }
