@@ -30,9 +30,6 @@ public class TicketDTO {
   @NotNull
   private double price;
 
-//  @NotNull
-//  private Set<Integer> parkingLots;
-
   @NotNull
   private Integer parkingLot;
 
@@ -48,4 +45,91 @@ public class TicketDTO {
   @NotNull
   private String customerName;
 
+  public Integer getTicketId() {
+    return ticketId;
+  }
+
+  public void setTicketId(Integer ticketId) {
+    this.ticketId = ticketId;
+  }
+
+  public String getStartDate() {
+    return startDate;
+  }
+
+  public void setStartDate(String startDate) {
+    this.startDate = startDate;
+  }
+
+  public String getEndDate() {
+    return endDate;
+  }
+
+  public void setEndDate(String endDate) {
+    this.endDate = endDate;
+  }
+
+  public String getTicketStatus() {
+    return ticketStatus;
+  }
+
+  public void setTicketStatus(String ticketStatus) {
+    this.ticketStatus = ticketStatus;
+  }
+
+  public String getTicketTypeDetail() {
+    return ticketTypeDetail;
+  }
+
+  public void setTicketTypeDetail(String ticketTypeDetail) {
+    this.ticketTypeDetail = ticketTypeDetail;
+  }
+
+  public double getPrice() {
+    return price;
+  }
+
+  public void setPrice(double price) {
+    this.price = price;
+  }
+
+  public Integer getParkingLot() {
+    return parkingLot;
+  }
+
+  public void setParkingLot(Integer parkingLot) {
+    this.parkingLot = parkingLot;
+  }
+
+  public String getFloorName() {
+    return floorName;
+  }
+
+  public void setFloorName(String floorName) {
+    this.floorName = floorName;
+  }
+
+  public String getZoneName() {
+    return zoneName;
+  }
+
+  public void setZoneName(String zoneName) {
+    this.zoneName = zoneName;
+  }
+
+  public String getCarPlate() {
+    return carPlate;
+  }
+
+  public void setCarPlate(String carPlate) {
+    this.carPlate = carPlate;
+  }
+
+  public String getCustomerName() {
+    return customerName;
+  }
+
+  public void setCustomerName(String customerName) {
+    this.customerName = customerName;
+  }
 }
