@@ -43,8 +43,10 @@ public class Ticket {
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 
-  @ManyToOne(targetEntity = Car.class, cascade = CascadeType.ALL)
-  @JoinColumn(name = "carId")
+//quan
+  @ManyToOne(targetEntity = Car.class, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+//
+  @JoinColumn(name = "carId", nullable = false)
   private Car car;
 
 

@@ -16,7 +16,8 @@ public class Car {
     private String license;
     private String color;
     private String producer;
-    @OneToMany(mappedBy = "car",cascade = CascadeType.MERGE)
+//    quan
+    @OneToMany(mappedBy = "car",cascade={CascadeType.PERSIST,CascadeType.REMOVE})
 //    @JsonBackReference
     private Set<Parking> parkings;
 
@@ -32,7 +33,8 @@ public class Car {
      * @author: Thien ~ Setting relationship Car <-> Ticket
      */
     @JsonIgnore
-    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY)
+//    quan chỉnh sửa
+    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
     private Set<Ticket> tickets;
 
     public Set<Parking> getParkings() {

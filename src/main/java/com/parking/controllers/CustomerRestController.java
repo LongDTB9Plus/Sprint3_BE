@@ -30,8 +30,8 @@ public class CustomerRestController {
     public ResponseEntity<CustomerDTO> getCustomerId(@PathVariable int id){
         return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
-    @PostMapping("add-customer")
-    public ResponseEntity<Customer> create(@RequestBody CustomerDTO customerDTO, UriComponentsBuilder builder){
+    @PostMapping("/add-customer")
+    public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO customerDTO, UriComponentsBuilder builder){
         if (customerService.checkCustomerEmailAndPhoneNumber(customerService.convertToCustomer(customerDTO))){
             customerService.saveCustomer(customerDTO);
             HttpHeaders headers = new HttpHeaders();
@@ -52,5 +52,19 @@ public class CustomerRestController {
 //            return new ResponseEntity<>(car,HttpStatus.OK);
             return new ResponseEntity<>(customerService.findCustomerByCar(car), HttpStatus.OK);
         }else return new ResponseEntity<>(HttpStatus.CONFLICT);
+    }
+
+    @PostMapping("/edit-customer")
+    public ResponseEntity<CustomerDTO> editCustomer(@RequestBody CustomerDTO customerDTO){
+        System.out.println("a" + customerDTO.getId());
+        List<CustomerDTO> list = customerService.findListCustomerOtherId(customerDTO.getId());
+        System.out.println(list);
+        for (CustomerDTO customerDTO1: list){
+            if (customerDTO1.getEmail().equals(customerDTO.getEmail()) || customerDTO1.getIdCard().equals(customerDTO.getIdCard()) || customerDTO1.getPhone().equals(customerDTO.getPhone())){
+                return new ResponseEntity<>(HttpStatus.CONFLICT);
+            }
+        }
+        customerService.saveCustomer(customerDTO);
+        return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
 }
