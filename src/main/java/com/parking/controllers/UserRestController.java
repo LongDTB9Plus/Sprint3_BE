@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -87,5 +88,12 @@ public class UserRestController {
     @GetMapping("/user/{id}")
     public ResponseEntity<User> findByIdDto(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
+    }
+
+    @DeleteMapping("/delete-user/{id}")
+//    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
+        userService.delete(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
