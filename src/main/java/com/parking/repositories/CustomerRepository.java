@@ -5,6 +5,7 @@ import com.parking.models.DAO.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
@@ -25,4 +26,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
                     "where car.license = ?1",
             nativeQuery = true)
     String findCustomerNameByCarLicense(String license);
+
+
+//    quan
+    @Query(value = "select * from Customer c where c.id != :id", nativeQuery = true)
+    List<Customer> findListCustomerOtherId(Integer id);
 }

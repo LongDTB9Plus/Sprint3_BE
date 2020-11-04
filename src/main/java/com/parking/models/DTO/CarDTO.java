@@ -10,13 +10,13 @@ public class CarDTO {
     private Integer customerId;
     private String type;
     Set<Integer> parkings;
-    private Integer ticket;
+    private Set<Integer> ticket;
 
-    public Integer getTicket() {
+    public Set<Integer> getTicket() {
         return ticket;
     }
 
-    public void setTicket(Integer ticket) {
+    public void setTicket(Set<Integer> ticket) {
         this.ticket = ticket;
     }
 

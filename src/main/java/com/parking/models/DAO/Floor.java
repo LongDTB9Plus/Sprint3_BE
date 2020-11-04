@@ -15,9 +15,6 @@ public class Floor {
     @OneToMany(mappedBy="floor")
     private List<Zone> listZone;
 
-    @OneToMany(mappedBy="floor")
-    private List<ParkingLot> listParkingLot;
-
     public Floor() {
     }
 
@@ -45,11 +42,4 @@ public class Floor {
         this.listZone = listZone;
     }
 
-    public List<ParkingLot> getListParkingLot() {
-        return listParkingLot;
-    }
-
-    public void setListParkingLot(List<ParkingLot> listParkingLot) {
-        this.listParkingLot = listParkingLot;
-    }
 }
