@@ -6,7 +6,6 @@ import com.parking.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -64,5 +63,11 @@ public class CarRestController {
     @GetMapping("getAllCarByType/{type}")
     public ResponseEntity<List<CarDTO>> getAllCarByType(@PathVariable String type){
         return new ResponseEntity<>(carService.findAllCarByType(type), HttpStatus.OK);
+    }
+//    quan
+    @PostMapping("/edit-car")
+    public ResponseEntity<Void> editCar(@RequestBody CarDTO carDTO){
+        carService.editCar(carDTO);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 }

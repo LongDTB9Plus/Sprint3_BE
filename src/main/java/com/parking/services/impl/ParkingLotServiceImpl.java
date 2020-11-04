@@ -69,4 +69,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         return parkingLotDTO;
     }
 
+    @Override
+    public Optional<ParkingLot> findParkingLotEntityById(Integer id) {
+        return parkingLotRepository.findById(id);
+    }
+
 }

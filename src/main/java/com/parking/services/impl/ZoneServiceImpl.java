@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -64,5 +65,10 @@ public class ZoneServiceImpl implements ZoneService {
         }
         zoneDTO.setListParkingLot(arrIdParkingLot);
         return zoneDTO;
+    }
+
+    @Override
+    public Optional<Zone> findByZoneName(String zoneName) {
+        return zoneRepository.findByZoneName(zoneName);
     }
 }

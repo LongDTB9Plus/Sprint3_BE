@@ -8,6 +8,7 @@ import com.parking.models.DTO.ParkingLotDTO;
 import com.parking.models.DTO.ZoneDTO;
 import com.parking.services.FloorService;
 import com.parking.services.ParkingLotService;
+import com.parking.services.ParkingService;
 import com.parking.services.ZoneService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -27,6 +28,9 @@ public class ParkingLotRestController {
 
     @Autowired
     private ZoneService zoneService;
+
+    @Autowired
+    private ParkingService parkingService;
 
     @GetMapping("/getAllParkingLot")
     public ResponseEntity<List<ParkingLotDTO>> getAllParkingLot(){
@@ -83,5 +87,15 @@ public class ParkingLotRestController {
     @GetMapping("/getParkingLotById/{id}")
     public ResponseEntity<ParkingLotDTO> getParkingLotById(@PathVariable Integer id){
         return new ResponseEntity<>(parkingLotService.findById(id), HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllCarByDateIn/{dateStart}/{dateEnd}")
+    public ResponseEntity<List<String[]>> getAllCarByDateIn(@PathVariable String dateStart, @PathVariable String dateEnd){
+        return new ResponseEntity<>(parkingService.getAllCarByDateIn(dateStart, dateEnd),HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllCarByDateOut/{dateStart}/{dateEnd}")
+    public ResponseEntity<List<String[]>> getAllCarByDateOut(@PathVariable String dateStart, @PathVariable String dateEnd){
+        return new ResponseEntity<>(parkingService.getAllCarByDateOut(dateStart, dateEnd),HttpStatus.OK);
     }
 }

@@ -32,4 +32,6 @@ public interface CustomerService {
      */
     String findCustomerNameByCarLicense(String license);
 
+//    quan
+    List<CustomerDTO> findListCustomerOtherId(int id);
 }

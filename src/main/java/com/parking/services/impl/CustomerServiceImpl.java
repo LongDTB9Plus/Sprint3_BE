@@ -113,4 +113,9 @@ public class CustomerServiceImpl implements CustomerService {
     public String findCustomerNameByCarLicense(String license) {
         return customerRepository.findCustomerNameByCarLicense(license);
     }
+
+    @Override
+    public List<CustomerDTO> findListCustomerOtherId(int id) {
+        return customerRepository.findListCustomerOtherId(id).stream().map(this::convertToCustomerDto).collect(Collectors.toList());
+    }
 }
