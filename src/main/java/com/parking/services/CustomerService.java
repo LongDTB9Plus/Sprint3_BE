@@ -32,4 +32,6 @@ public interface CustomerService {
      */
     String findCustomerNameByCarLicense(String license);
 
+    List<Customer> findAllCustomer();
+
 }

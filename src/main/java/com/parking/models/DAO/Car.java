@@ -31,8 +31,7 @@ public class Car {
     /**
      * @author: Thien ~ Setting relationship Car <-> Ticket
      */
-    @JsonIgnore
-    @ManyToOne(targetEntity = Ticket.class, fetch = FetchType.LAZY)
+    @ManyToOne(targetEntity = Ticket.class)
     @JoinColumn(name = "ticketId")
     private Ticket ticket;
 
