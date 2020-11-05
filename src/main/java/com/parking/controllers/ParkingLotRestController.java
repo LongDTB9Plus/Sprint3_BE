@@ -98,4 +98,9 @@ public class ParkingLotRestController {
     public ResponseEntity<List<String[]>> getAllCarByDateOut(@PathVariable String dateStart, @PathVariable String dateEnd){
         return new ResponseEntity<>(parkingService.getAllCarByDateOut(dateStart, dateEnd),HttpStatus.OK);
     }
+
+    @GetMapping("/getAllCarByDateInDateOut/{dateStart}/{dateEnd}")
+    public ResponseEntity<List<String[]>> getAllCarByDateInDateOut(@PathVariable String dateStart, @PathVariable String dateEnd){
+        return new ResponseEntity<>(parkingService.getAllCarByDateInDateOut(dateStart, dateEnd),HttpStatus.OK);
+    }
 }
