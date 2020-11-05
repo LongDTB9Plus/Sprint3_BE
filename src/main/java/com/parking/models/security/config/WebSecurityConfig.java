@@ -1,9 +1,11 @@
 package com.parking.models.security.config;
 
 
+import com.parking.models.DAO.Rank;
 import com.parking.models.security.constant.ERoleName;
 import com.parking.models.security.user.User;
 import com.parking.models.security.utils.Role;
+import com.parking.repositories.RankRepository;
 import com.parking.repositories.RoleRepository;
 import com.parking.repositories.UserRepository;
 import com.parking.services.security.JwtEntryPoint;
@@ -49,6 +51,9 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private RankRepository rankRepository;
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -68,8 +73,11 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Bean
     ApplicationRunner init(RoleRepository roleRepository, UserRepository userRepository) {
         System.out.println("Created !");
+
+
         // create role and user in database
         return args -> {
+
             if (roleRepository.findAll().isEmpty()) {
 
                 Role adminRole = new Role(ERoleName.ROLE_ADMIN);
@@ -86,6 +94,15 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                         () -> new RuntimeException("Role doesn't exist")
                 ));
 
+                String[] ranks = {"Nhân viên giữ xe", "Bảo vệ", "Nhân viên bảo trì"};
+
+                for (String s : ranks) {
+                    Rank rank = new Rank();
+                    rank.setRankName(s);
+                    rankRepository.save(rank);
+                }
+
+
                 User admin = new User();
 
                 admin.setUsername(adminUsername);
@@ -97,6 +114,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 admin.setAddress("Da Nang");
                 admin.setPhone("0123456799");
                 admin.setRoles(roles);
+                admin.setRank(rankRepository.findById(1).orElse(null));
                 userRepository.save(admin);
 
                 Set<Role> rolesForMember = new HashSet<>();
@@ -115,6 +133,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 member.setPhone("0123456799");
                 member.setGender("Nam");
                 member.setRoles(rolesForMember);
+                member.setRank(rankRepository.findById(1).orElse(null));
                 userRepository.save(member);
             }
         };
