@@ -32,10 +32,10 @@ public class Car {
     /**
      * @author: Thien ~ Setting relationship Car <-> Ticket
      */
-    @JsonIgnore
-//    quan chỉnh sửa
-    @OneToMany(mappedBy = "car", fetch = FetchType.LAZY, cascade={CascadeType.PERSIST,CascadeType.REMOVE})
+
+    @OneToMany(mappedBy = "car", cascade = CascadeType.MERGE)
     private Set<Ticket> tickets;
+
 
     public Set<Parking> getParkings() {
         return parkings;

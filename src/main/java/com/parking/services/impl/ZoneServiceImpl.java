@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -24,11 +25,14 @@ public class ZoneServiceImpl implements ZoneService {
 
     @Override
     public List<ZoneDTO> getAllZoneDTO(Integer id) {
-        Floor floor = floorRepository.findById(id).orElse(null);
-        if(floor != null){
-            return zoneRepository.getZonesByFloor(floor).stream().map(this::convertZoneToDTO).collect(Collectors.toList());
+        if (id == 0) {
+            return zoneRepository.findAll().stream().map(this::convertZoneToDTO).collect(Collectors.toList());
         }
-        else return new ArrayList<>();
+
+        Floor floor = floorRepository.findById(id).orElse(null);
+        if (floor != null) {
+            return zoneRepository.getZonesByFloor(floor).stream().map(this::convertZoneToDTO).collect(Collectors.toList());
+        } else return new ArrayList<>();
     }
 
     @Override
@@ -41,13 +45,19 @@ public class ZoneServiceImpl implements ZoneService {
         zoneRepository.deleteById(id);
     }
 
-    private ZoneDTO convertZoneToDTO(Zone zone){
+    @Override
+    public Zone getZoneById(Integer id) {
+        return zoneRepository.findById(id).orElse(null);
+    }
+
+    private ZoneDTO convertZoneToDTO(Zone zone) {
         ZoneDTO zoneDTO = new ZoneDTO();
         zoneDTO.setId(zone.getIdZone());
         zoneDTO.setDirection(zone.getDirection());
         zoneDTO.setName(zone.getZoneName());
         zoneDTO.setPositionX(zone.getPositionX());
         zoneDTO.setPositionY(zone.getPositionY());
+        zoneDTO.setIdFloor(zone.getFloor().getIdFloor());
 
         List<Integer> arrIdParkingLot = new ArrayList<>();
         for (ParkingLot p : zone.getListParkingLot()) {
@@ -55,5 +65,10 @@ public class ZoneServiceImpl implements ZoneService {
         }
         zoneDTO.setListParkingLot(arrIdParkingLot);
         return zoneDTO;
+    }
+
+    @Override
+    public Optional<Zone> findByZoneName(String zoneName) {
+        return zoneRepository.findByZoneName(zoneName);
     }
 }
