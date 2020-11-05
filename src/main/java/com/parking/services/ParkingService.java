@@ -14,4 +14,5 @@ public interface ParkingService {
 // Chau
    List<String[]> getAllCarByDateIn(String dateStart, String dateEnd);
    List<String[]> getAllCarByDateOut(String dateStart, String dateEnd);
+   List<String[]> getAllCarByDateInDateOut(String dateStart, String dateEnd);
 }
