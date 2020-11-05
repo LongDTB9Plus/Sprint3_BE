@@ -5,6 +5,7 @@ import com.parking.models.DAO.Customer;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
+import java.util.List;
 import java.util.Optional;
 
 public interface CustomerRepository extends JpaRepository<Customer, Integer> {
@@ -12,9 +13,6 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
     Optional<Customer> findAllByEmail (String email);
     Optional<Customer> findAllByPhone (String phone);
     Customer findAllByCars (Car car);
-    Optional<Customer> findAllByEmail(String email);
-
-    Optional<Customer> findAllByPhone(String phone);
 
     /**
      *
@@ -29,4 +27,8 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
             nativeQuery = true)
     String findCustomerNameByCarLicense(String license);
 
+
+//    quan
+    @Query(value = "select * from Customer c where c.id != :id", nativeQuery = true)
+    List<Customer> findListCustomerOtherId(Integer id);
 }

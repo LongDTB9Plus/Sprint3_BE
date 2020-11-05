@@ -1,6 +1,7 @@
 package com.parking.models.constant;
 
 import lombok.Getter;
+import lombok.Setter;
 
 /**
  * Author: Thien

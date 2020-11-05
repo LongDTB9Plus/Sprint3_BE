@@ -24,6 +24,12 @@ public interface CarService {
 
 //    quan
     List<CarDTO> findCarByCustomer(int customerId);
+
+    //Chau
+    List<CarDTO> findAllCarByType(String type);
+
+//    quan
+    void editCar(CarDTO carDTO);
 }
 
 

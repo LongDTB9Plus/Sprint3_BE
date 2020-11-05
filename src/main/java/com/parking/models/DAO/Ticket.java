@@ -2,16 +2,7 @@ package com.parking.models.DAO;
 
 import java.util.Set;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
@@ -52,8 +43,11 @@ public class Ticket {
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 
-  @OneToMany(mappedBy = "ticket", fetch = FetchType.LAZY)
-  private Set<Car> cars;
+//quan
+  @ManyToOne(targetEntity = Car.class, cascade= CascadeType.MERGE)
+//
+  @JoinColumn(name = "carId")
+  private Car car;
 
 
   // Đang xài lombok thằng Quân viết cái gì đây ?
@@ -97,12 +91,12 @@ public class Ticket {
     this.ticketType = ticketType;
   }
 
-  public Set<Car> getCars() {
-    return cars;
+  public Car getCar() {
+    return car;
   }
 
-  public void setCars(Set<Car> cars) {
-    this.cars = cars;
+  public void setCar(Car car) {
+    this.car = car;
   }
 
   public Set<ParkingLot> getParkingLots() {

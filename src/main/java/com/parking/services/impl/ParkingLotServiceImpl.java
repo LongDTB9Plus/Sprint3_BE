@@ -44,11 +44,15 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     private ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot){
         ParkingLotDTO parkingLotDTO = new ParkingLotDTO();
         parkingLotDTO.setId(parkingLot.getIdParkingLot());
-        parkingLotDTO.setIdFloor(parkingLot.getFloor().getIdFloor());
+        parkingLotDTO.setIdFloor(parkingLot.getZone().getFloor().getIdFloor());
         parkingLotDTO.setIdZone(parkingLot.getZone().getIdZone());
-        parkingLotDTO.setNameFloor(parkingLot.getFloor().getNameFloor());
+        parkingLotDTO.setNameFloor(parkingLot.getZone().getFloor().getNameFloor());
         parkingLotDTO.setNameZone(parkingLot.getZone().getZoneName());
-        parkingLotDTO.setStatus(parkingLot.getStatusParkingLot());
+        if(parkingLot.getStatusParkingLot()){
+            parkingLotDTO.setStatus("Chưa có xe");
+        }else {
+            parkingLotDTO.setStatus("Đã có xe");
+        }
         return parkingLotDTO;
     }
 
@@ -63,6 +67,11 @@ public class ParkingLotServiceImpl implements ParkingLotService {
             parkingLotDTO = convertParkingLotToDTO(parkingLot.get());
         }
         return parkingLotDTO;
+    }
+
+    @Override
+    public Optional<ParkingLot> findParkingLotEntityById(Integer id) {
+        return parkingLotRepository.findById(id);
     }
 
 }

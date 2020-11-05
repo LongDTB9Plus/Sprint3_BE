@@ -2,6 +2,7 @@ package com.parking.services.impl;
 
 import com.parking.models.DAO.Car;
 import com.parking.models.DAO.Parking;
+import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.CarDTO;
 import com.parking.repositories.CarRepository;
 import com.parking.repositories.CustomerRepository;
@@ -36,9 +37,10 @@ public class CarServiceImpl implements CarService {
     public Car convertToCar(CarDTO carDTO){
         Car car = new Car();
 //        Add logic for id in add new and parse situation.
-        if (carDTO.getCarId() != 0) {
-            car.setCarId(carDTO.getCarId());
-        }else car.setCarId(null);
+//        if (carDTO.getCarId() != 0) {
+//            car.setCarId(carDTO.getCarId());
+//        }else car.setCarId(null);
+        car.setCarId(carDTO.getCarId());
         car.setColor(carDTO.getColor());
         car.setCustomer(customerRepository.findById(carDTO.getCustomerId()).orElse(null));
         car.setType(carDTO.getType());
@@ -50,7 +52,16 @@ public class CarServiceImpl implements CarService {
         }
         car.setParkings(parkings);
         car.setProducer(carDTO.getProducer());
-        car.setTicket(ticketRepository.findById(carDTO.getTicket()).orElse(null));
+
+        /**
+         * @author: Thien: Nếu chỗ này lỗi - Liên hệ Thiện
+         */
+        Set<Ticket> tickets = new HashSet<>();
+        Set<Integer> integers = carDTO.getTicket();
+        for (Integer integer: integers){
+            tickets.add(ticketRepository.findById(integer).orElse(null));
+        }
+        car.setTickets(tickets);
 
         return car;
     }
@@ -68,7 +79,12 @@ public class CarServiceImpl implements CarService {
         }
         carDTO.setParkings(set);
         carDTO.setProducer(car.getProducer());
-//        carDTO.setTicket(car.getTicket().getTicketId());
+        Set<Ticket> ticketList = car.getTickets();
+        Set<Integer> integers = new HashSet<>();
+        for (Ticket ticket: ticketList){
+            integers.add(ticket.getTicketId());
+        }
+        carDTO.setTicket(integers);
         return carDTO;
     }
 
@@ -120,5 +136,15 @@ public class CarServiceImpl implements CarService {
     @Override
     public List<CarDTO> findCarByCustomer(int customerId) {
         return carRepository.findAllByCustomer(customerRepository.findById(customerId).orElse(null)).stream().map(this::convertToCarDto).collect(Collectors.toList());
+    }
+// Chau
+    @Override
+    public List<CarDTO> findAllCarByType(String type) {
+        return carRepository.findAllByType(type).stream().map(this::convertToCarDto).collect(Collectors.toList());
+    }
+//quan
+    @Override
+    public void editCar(CarDTO carDTO) {
+        carRepository.save(convertToCar(carDTO));
     }
 }

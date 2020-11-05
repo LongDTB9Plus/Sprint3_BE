@@ -11,6 +11,9 @@ public interface UserService {
     List<User> findAll();
     void save(UserDTO userDto);
     User findByUsername(String username);
+    Integer countAllBy();
+    User findById(Integer id);
+    void delete(Integer id);
 
 }
 

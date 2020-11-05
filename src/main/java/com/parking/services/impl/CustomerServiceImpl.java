@@ -20,6 +20,7 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Autowired
     CarRepository carRepository;
+
     @Override
     public CustomerDTO convertToCustomerDto(Customer customer) {
         CustomerDTO customerDTO = new CustomerDTO();
@@ -39,6 +40,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerDTO.setCars(list);
         return customerDTO;
     }
+
     @Override
     public Customer convertToCustomer(CustomerDTO customerDTO) {
         Customer customer = new Customer();
@@ -84,7 +86,7 @@ public class CustomerServiceImpl implements CustomerService {
         customerRepository.save(convertToCustomer(customerDTO));
     }
 
-//    Save new customer and return customer ID of instance just saved. return 0 if saving process failed.
+    //    Save new customer and return customer ID of instance just saved. return 0 if saving process failed.
     @Override
     public Integer saveNewCustomer(Customer customer) {
         if (checkCustomerEmailAndPhoneNumber(customer)) {
@@ -106,11 +108,21 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     /**
-     *
      * @author: Thien ~ Query get customer name by car license
      */
     @Override
     public String findCustomerNameByCarLicense(String license) {
         return customerRepository.findCustomerNameByCarLicense(license);
+    }
+
+    @Override
+    public List<Customer> findAllCustomer() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public List<CustomerDTO> findListCustomerOtherId(int id) {
+        return customerRepository.findListCustomerOtherId(id).stream().map(this::convertToCustomerDto).collect(Collectors.toList());
+
     }
 }

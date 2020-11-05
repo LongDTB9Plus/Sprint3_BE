@@ -2,6 +2,7 @@ package com.parking.controllers;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 import com.parking.models.DAO.ParkingLot;
@@ -57,7 +58,7 @@ public class TicketController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "get/{lisence}")
+    @GetMapping(value = "get-car-by-lisence/{lisence}")
     public ResponseEntity<String> getCarByLicense(@PathVariable String lisence) {
         return ResponseEntity.ok(customerService.findCustomerNameByCarLicense(lisence));
     }
@@ -74,7 +75,9 @@ public class TicketController {
 
     @PostMapping(value = "create")
     public ResponseEntity<Void> createTicked(@RequestBody TicketDTO ticketDTO) {
-        return null;
+        Ticket ticket = ticketConverter.convertToTicket(ticketDTO);
+        ticketService.createTicket(ticket);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @PutMapping(value = "edit")
@@ -82,9 +85,10 @@ public class TicketController {
         return null;
     }
 
-    @DeleteMapping(value = "delete/{ticketId")
+    @DeleteMapping(value = "delete/{ticketId}")
     public ResponseEntity<Void> deleteTicketById(@PathVariable Integer ticketId) {
-        return null;
+        ticketService.deleteTicket(ticketId);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @GetMapping(value = "expired")
@@ -92,14 +96,31 @@ public class TicketController {
         return null;
     }
 
+    @GetMapping(value = "find-by-lisence/{license}")
+    public ResponseEntity<Set<Integer>> findTicketByLicense(@PathVariable String license) {
+        Set<Integer> result = ticketService.findTicketByLicense(license);
+        if (result.isEmpty()) {
+            ResponseEntity.status(HttpStatus.CONFLICT);
+        } else {
+            new ResponseEntity<>(result, HttpStatus.FOUND);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
     @GetMapping(value = "test")
     public String test() {
         return "Success!";
     }
 
-//    quan
+    //    quan
     @GetMapping(value = "{id}")
-    public ResponseEntity<TicketDTO> findTicketById(@PathVariable int id){
+    public ResponseEntity<TicketDTO> findTicketById(@PathVariable int id) {
         return new ResponseEntity<>(ticketService.getById(id), HttpStatus.OK);
+    }
+
+    @GetMapping(value = "lot/{id}")
+    public ResponseEntity<ParkingLot> findLot(@PathVariable int id) {
+        Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(id);
+        return parkingLotOptional.map(parkingLot -> new ResponseEntity<>(parkingLot, HttpStatus.OK)).orElse(null);
     }
 }
