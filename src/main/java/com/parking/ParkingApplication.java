@@ -70,63 +70,66 @@ public class ParkingApplication implements ApplicationRunner {
 //        fake data customer
         if (customerService.findAllCustomer().isEmpty()) {
 //            Customer data 1
+            {
                 Customer test1 = new Customer();
-            test1.setAddress("Da Nang");
-            test1.setBirthday("24/08/1993");
-            test1.setEmail("alexsama2408@gmail.com");
-            test1.setGender("Male");
-            test1.setIdCard("123456789");
-            test1.setNameCustomer("Alex");
-            test1.setPhone("0941286408");
-            Integer customerId = customerService.saveNewCustomer(test1);
-            test1.setId(customerId);
+                test1.setAddress("Da Nang");
+                test1.setBirthday("24/08/1993");
+                test1.setEmail("alexsama2408@gmail.com");
+                test1.setGender("Male");
+                test1.setIdCard("123456789");
+                test1.setNameCustomer("Alex");
+                test1.setPhone("0941286408");
+                Integer customerId = customerService.saveNewCustomer(test1);
+                test1.setId(customerId);
 //           Customer datat 2
-            Customer test2 = new Customer();
-            test2.setAddress("Da Nang");
-            test2.setBirthday("14/04/1991");
-            test2.setEmail("Janice1404@gmail.com");
-            test2.setGender("Female");
-            test2.setIdCard("987654321");
-            test2.setNameCustomer("Janice");
-            test2.setPhone("09323631421");
-            Integer customer2Id = customerService.saveNewCustomer(test2);
-            test2.setId(customer2Id);
-            {
-                Car car = new Car();
-                car.setColor("white");
-                car.setCustomer(test1);
-                car.setLicense("51g92564");
-                car.setType("Sedan");
-                car.setProducer("Nissan");
-                carService.addNewCar(car);
+                Customer test2 = new Customer();
+                test2.setAddress("Da Nang");
+                test2.setBirthday("14/04/1991");
+                test2.setEmail("Janice1404@gmail.com");
+                test2.setGender("Female");
+                test2.setIdCard("987654321");
+                test2.setNameCustomer("Janice");
+                test2.setPhone("09323631421");
+                Integer customer2Id = customerService.saveNewCustomer(test2);
+                test2.setId(customer2Id);
+                {
+                    Car car = new Car();
+                    car.setColor("white");
+                    car.setCustomer(test1);
+                    car.setLicense("51g92564");
+                    car.setType("Sedan");
+                    car.setProducer("Nissan");
+                    carService.addNewCar(car);
+                }
+                {
+                    Car car1 = new Car();
+                    car1.setColor("white");
+                    car1.setCustomer(test1);
+                    car1.setLicense("51f88838");
+                    car1.setType("Sport");
+                    car1.setProducer("Lamborghini");
+                    carService.addNewCar(car1);
+                }
+                {
+                    Car car = new Car();
+                    car.setColor("black");
+                    car.setCustomer(test2);
+                    car.setLicense("43a27208");
+                    car.setType("Sedan");
+                    car.setProducer("Mercedes");
+                    carService.addNewCar(car);
+                }
+                {
+                    Car car = new Car();
+                    car.setColor("white");
+                    car.setCustomer(test1);
+                    car.setLicense("30a88888");
+                    car.setType("Hybrid");
+                    car.setProducer("Lexus");
+                    carService.addNewCar(car);
+                }
             }
-            {
-                Car car1 = new Car();
-                car1.setColor("white");
-                car1.setCustomer(test1);
-                car1.setLicense("51f88838");
-                car1.setType("Sport");
-                car1.setProducer("Lamborghini");
-                carService.addNewCar(car1);
-            }
-            {
-                Car car = new Car();
-                car.setColor("black");
-                car.setCustomer(test2);
-                car.setLicense("43a27208");
-                car.setType("Sedan");
-                car.setProducer("Mercedes");
-                carService.addNewCar(car);
-            }
-            {
-                Car car = new Car();
-                car.setColor("white");
-                car.setCustomer(test1);
-                car.setLicense("30a88888");
-                car.setType("Hybrid");
-                car.setProducer("Lexus");
-                carService.addNewCar(car);
-            }
+
         }
     }
 }
