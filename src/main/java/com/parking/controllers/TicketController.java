@@ -91,6 +91,16 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "/remove-list")
+    public ResponseEntity<List<TicketDTO>> getDeletedTicketList() {
+        List<TicketDTO> result = ticketService
+                .getAllDeletedTickets()
+                .stream()
+                .map(ticket -> ticketConverter.convertToTicketDTO(ticket))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping(value = "expired")
     public ResponseEntity<Void> handlingExpiredTicket(@RequestBody TicketDTO ticketDTO) {
         return null;
