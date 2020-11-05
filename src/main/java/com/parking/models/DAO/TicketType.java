@@ -21,7 +21,7 @@ import lombok.Data;
  * Author: Thien
  */
 @Entity
-@Data
+//@Data
 @Table(name = "ticket_type")
 @JsonIdentityInfo(
   generator = ObjectIdGenerators.PropertyGenerator.class,
