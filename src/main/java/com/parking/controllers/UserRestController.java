@@ -72,13 +72,13 @@ public class UserRestController {
         return ResponseEntity.ok(response);
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list-user")
     public ResponseEntity<List<User>> getListUser() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-user")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDto, UriComponentsBuilder builder) {
         userService.save(userDto);
@@ -94,20 +94,20 @@ public class UserRestController {
         return new ResponseEntity<>(userService.countAllBy(), HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @GetMapping("/user/{id}")
     public ResponseEntity<User> findByIdDto(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-user/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    //    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @GetMapping("/userInfo/{id}")
     public ResponseEntity<User> findByIdDtoInfo(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
