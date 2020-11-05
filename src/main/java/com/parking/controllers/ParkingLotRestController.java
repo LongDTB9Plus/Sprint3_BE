@@ -98,4 +98,25 @@ public class ParkingLotRestController {
     public ResponseEntity<List<String[]>> getAllCarByDateOut(@PathVariable String dateStart, @PathVariable String dateEnd){
         return new ResponseEntity<>(parkingService.getAllCarByDateOut(dateStart, dateEnd),HttpStatus.OK);
     }
+
+    @GetMapping("/changeZonePositionX/{id}/{pX}")
+    public void changeZonePositionX(@PathVariable Integer id, @PathVariable Integer pX){
+        System.out.println("X");
+        Zone zone = zoneService.getZoneById(id);
+        zone.setPositionX(pX);
+        zoneService.addZone(zone);
+    }
+
+    @GetMapping("/changeZonePositionY/{id}/{pY}")
+    public void changeZonePositionY(@PathVariable Integer id, @PathVariable Integer pY){
+        System.out.println("Y");
+        Zone zone = zoneService.getZoneById(id);
+        zone.setPositionY(pY);
+        zoneService.addZone(zone);
+    }
+
+    @DeleteMapping("/deleteParkingLot/{id}")
+    public void deleteParkingLot(@PathVariable Integer id){
+        parkingLotService.deleteParkingLot(id);
+    }
 }
