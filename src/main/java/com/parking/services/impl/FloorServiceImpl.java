@@ -40,6 +40,21 @@ public class FloorServiceImpl implements FloorService {
         floorRepository.deleteById(id);
     }
 
+    @Override
+    public List<Floor> getAllFloor() {
+        return floorRepository.findAll();
+    }
+
+    @Override
+    public Integer getCountOfFloor() {
+        return (int) floorRepository.count();
+    }
+
+    @Override
+    public Floor findById(Integer id) {
+        return floorRepository.findById(id).orElse(null);
+    }
+
     private FloorDTO convertFloorToDTO(Floor floor) {
         FloorDTO floorDTO = new FloorDTO();
         floorDTO.setId(floor.getIdFloor());
