@@ -48,4 +48,9 @@ public class ParkingServiceImpl implements ParkingService {
         return parkingRepository.getAllCarByDateOut(dateStart, dateEnd);
     }
 
+    @Override
+    public List<String[]> getAllCarByDateInDateOut(String dateStart, String dateEnd) {
+        return parkingRepository.getAllCarByDateInDateOut(dateStart, dateEnd);
+    }
+
 }

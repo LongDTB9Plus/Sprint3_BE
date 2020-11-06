@@ -141,4 +141,9 @@ public class ParkingLotRestController {
     public void deleteParkingLot(@PathVariable Integer id){
         parkingLotService.deleteParkingLot(id);
     }
+
+    @GetMapping("/getAllCarByDateInDateOut/{dateStart}/{dateEnd}")
+    public ResponseEntity<List<String[]>> getAllCarByDateInDateOut(@PathVariable String dateStart, @PathVariable String dateEnd){
+        return new ResponseEntity<>(parkingService.getAllCarByDateInDateOut(dateStart, dateEnd),HttpStatus.OK);
+    }
 }
