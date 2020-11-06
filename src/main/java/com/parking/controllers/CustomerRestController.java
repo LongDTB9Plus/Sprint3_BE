@@ -67,4 +67,9 @@ public class CustomerRestController {
         customerService.saveCustomer(customerDTO);
         return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
+
+    @GetMapping("/customerByIdCard/{idCard}")
+    public ResponseEntity<Customer> findCustomerByIdCard(@PathVariable String idCard){
+        return new ResponseEntity<>(customerService.findCustomerByIdCard(idCard),HttpStatus.OK);
+    }
 }
