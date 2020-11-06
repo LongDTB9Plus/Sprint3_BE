@@ -35,10 +35,14 @@ public class UserRestController {
     AuthenticationManager authManager;
 
     private PasswordEncoder encoder;
+
     @Autowired
     public void setEncoder(PasswordEncoder encoder) {
         this.encoder = encoder;
     }
+
+    @Autowired
+    com.parking.services.security.EmailService getEmailService;
 
     @PostMapping("/login")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody Login loginRequest) throws AuthenticationException {
@@ -68,16 +72,20 @@ public class UserRestController {
         return ResponseEntity.ok(response);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/list-user")
     public ResponseEntity<List<User>> getListUser() {
         return new ResponseEntity<>(userService.findAll(), HttpStatus.OK);
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-user")
     public ResponseEntity<UserDTO> addUser(@RequestBody UserDTO userDto, UriComponentsBuilder builder) {
         userService.save(userDto);
         HttpHeaders headers = new HttpHeaders();
         headers.setLocation(builder.path("/user/{id}").buildAndExpand(userDto.getUserId()).toUri());
+        getEmailService.sendEmail(userDto.getEmail(), "Chào mừng " + userDto.getFullName() + " đến với công ty ABC", "Tài khoản nhân viên của bạn : " + userDto.getEmail()
+                + '\n' + "Mật khẩu : " + userDto.getPassword());
         return new ResponseEntity<>(headers, HttpStatus.CREATED);
     }
 
@@ -85,15 +93,23 @@ public class UserRestController {
     public ResponseEntity<Integer> getBidderMax() {
         return new ResponseEntity<>(userService.countAllBy(), HttpStatus.OK);
     }
+
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
     @GetMapping("/user/{id}")
     public ResponseEntity<User> findByIdDto(@PathVariable Integer id) {
         return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 
     @DeleteMapping("/delete-user/{id}")
-//    @PreAuthorize("hasRole('ADMIN')")
+    @PreAuthorize("hasRole('ADMIN')")
     public ResponseEntity<String> deleteUser(@PathVariable Integer id) {
         userService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @PreAuthorize("hasRole('MEMBER') or hasRole('ADMIN')")
+    @GetMapping("/userInfo/{id}")
+    public ResponseEntity<User> findByIdDtoInfo(@PathVariable Integer id) {
+        return new ResponseEntity<>(userService.findById(id), HttpStatus.OK);
     }
 }

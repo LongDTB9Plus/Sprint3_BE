@@ -3,6 +3,8 @@ package com.parking.services.security.user.impl;
 import com.parking.models.DAO.Rank;
 import com.parking.models.security.user.User;
 import com.parking.models.security.user.UserDTO;
+import com.parking.models.security.utils.Role;
+import com.parking.repositories.RoleRepository;
 import com.parking.repositories.UserRepository;
 import com.parking.services.RankService;
 import com.parking.services.security.user.UserService;
@@ -10,7 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -20,6 +24,8 @@ public class UserServiceImpl implements UserService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     RankService rankService;
+    @Autowired
+    RoleRepository roleRepository;
 
     private User convertToUser(UserDTO userDto) {
         User user = new User();
@@ -32,7 +38,12 @@ public class UserServiceImpl implements UserService {
         user.setPhone(userDto.getPhone());
         user.setBirthday(userDto.getBirthday());
         user.setAddress(userDto.getAddress());
-        Rank rank= rankService.findById(userDto.getRank());
+
+        Set<Role> roles = new HashSet<>();
+        roles.add(roleRepository.findById(2).orElse(null));
+        user.setRoles(roles);
+
+        Rank rank = rankService.findById(userDto.getRank());
         user.setRank(rank);
         return user;
     }
