@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -30,6 +31,7 @@ public class CustomerRestController {
     public ResponseEntity<CustomerDTO> getCustomerId(@PathVariable int id){
         return new ResponseEntity<>(customerService.findById(id), HttpStatus.OK);
     }
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("/add-customer")
     public ResponseEntity<CustomerDTO> create(@RequestBody CustomerDTO customerDTO, UriComponentsBuilder builder){
         if (customerService.checkCustomerEmailAndPhoneNumber(customerService.convertToCustomer(customerDTO))){
@@ -67,7 +69,7 @@ public class CustomerRestController {
         customerService.saveCustomer(customerDTO);
         return new ResponseEntity<>(customerDTO, HttpStatus.OK);
     }
-
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/customerByIdCard/{idCard}")
     public ResponseEntity<Customer> findCustomerByIdCard(@PathVariable String idCard){
         return new ResponseEntity<>(customerService.findCustomerByIdCard(idCard),HttpStatus.OK);
