@@ -1,12 +1,8 @@
 package com.parking;
 
-import com.parking.models.DAO.Car;
-import com.parking.models.DAO.Customer;
-import com.parking.models.DAO.TicketType;
+import com.parking.models.DAO.*;
 import com.parking.models.constant.ETicketPrice;
-import com.parking.services.CarService;
-import com.parking.services.CustomerService;
-import com.parking.services.TicketTypeService;
+import com.parking.services.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
@@ -25,6 +21,15 @@ public class ParkingApplication implements ApplicationRunner {
 
     @Autowired
     CarService carService;
+
+    @Autowired
+    FloorService floorService;
+
+    @Autowired
+    ZoneService zoneService;
+
+    @Autowired
+    ParkingLotService parkingLotService;
 
     public static void main(String[] args) {
         SpringApplication.run(ParkingApplication.class, args);
@@ -130,6 +135,105 @@ public class ParkingApplication implements ApplicationRunner {
                 }
             }
 
+
+        }
+
+//        Dữ liệu bãi đỗ xe
+        if (floorService.getAllFloor().isEmpty()) {
+            Floor floor = new Floor();
+            floor.setNameFloor("Tầng 1");
+            floorService.addFloor(floor);
+            {
+                Zone zone = new Zone();
+                zone.setPositionX(10);
+                zone.setPositionY(10);
+                zone.setFloor(floor);
+                zone.setDirection(0);
+                zone.setZoneName("Khu A");
+                zoneService.addZone(zone);
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(false);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(false);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+            }
+
+            {
+                Zone zone2 = new Zone();
+                zone2.setPositionX(500);
+                zone2.setPositionY(10);
+                zone2.setFloor(floor);
+                zone2.setDirection(1);
+                zone2.setZoneName("Khu B");
+                zoneService.addZone(zone2);
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+                {
+                    ParkingLot parkingLot = new ParkingLot();
+                    parkingLot.setZone(zone2);
+                    parkingLot.setStatusParkingLot(true);
+                    parkingLotService.addParkingLot(parkingLot);
+                }
+            }
         }
     }
 }

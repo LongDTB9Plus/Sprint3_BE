@@ -7,7 +7,7 @@ public class ParkingLotDTO {
     private Integer idZone;
     private String nameZone;
     private Boolean status;
-//  license: string;
+    private Integer direction;
 
     public ParkingLotDTO() {
     }
@@ -58,5 +58,13 @@ public class ParkingLotDTO {
 
     public void setStatus(Boolean status) {
         this.status = status;
+    }
+
+    public Integer getDirection() {
+        return direction;
+    }
+
+    public void setDirection(Integer direction) {
+        this.direction = direction;
     }
 }
