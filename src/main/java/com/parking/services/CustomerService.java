@@ -39,4 +39,6 @@ public interface CustomerService {
 //    quan
     List<CustomerDTO> findListCustomerOtherId(int id);
 
+    //Chau
+    Customer findCustomerByIdCard(String idCard);
 }

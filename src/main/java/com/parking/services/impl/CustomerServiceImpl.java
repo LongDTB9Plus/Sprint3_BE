@@ -125,4 +125,9 @@ public class CustomerServiceImpl implements CustomerService {
         return customerRepository.findListCustomerOtherId(id).stream().map(this::convertToCustomerDto).collect(Collectors.toList());
 
     }
+// Chau
+    @Override
+    public Customer findCustomerByIdCard(String idCard) {
+        return customerRepository.findCustomerByIdCard(idCard);
+    }
 }

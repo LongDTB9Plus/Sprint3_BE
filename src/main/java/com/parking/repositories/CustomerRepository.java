@@ -31,4 +31,7 @@ public interface CustomerRepository extends JpaRepository<Customer, Integer> {
 //    quan
     @Query(value = "select * from Customer c where c.id != :id", nativeQuery = true)
     List<Customer> findListCustomerOtherId(Integer id);
+
+    //chau
+    Customer findCustomerByIdCard(String idCard);
 }
