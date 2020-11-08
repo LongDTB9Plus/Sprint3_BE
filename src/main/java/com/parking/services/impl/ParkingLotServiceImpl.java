@@ -41,7 +41,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         return parkingLot.getStatusParkingLot();
     }
 
-    private ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot){
+    public ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot){
         ParkingLotDTO parkingLotDTO = new ParkingLotDTO();
         parkingLotDTO.setId(parkingLot.getIdParkingLot());
         parkingLotDTO.setIdFloor(parkingLot.getZone().getFloor().getIdFloor());
@@ -49,6 +49,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         parkingLotDTO.setNameFloor(parkingLot.getZone().getFloor().getNameFloor());
         parkingLotDTO.setNameZone(parkingLot.getZone().getZoneName());
         parkingLotDTO.setStatus(parkingLot.getStatusParkingLot());
+        parkingLotDTO.setDirection(parkingLot.getZone().getDirection());
         return parkingLotDTO;
     }
 
@@ -68,6 +69,11 @@ public class ParkingLotServiceImpl implements ParkingLotService {
     @Override
     public Optional<ParkingLot> findParkingLotEntityById(Integer id) {
         return parkingLotRepository.findById(id);
+    }
+
+    @Override
+    public Optional<ParkingLot> findAllByTicket_TicketIdAndStatusParkingLot(Integer ticketId, Boolean statusParkingLot) {
+        return parkingLotRepository.findAllByTicket_TicketIdAndStatusParkingLot(ticketId, statusParkingLot);
     }
 
 }

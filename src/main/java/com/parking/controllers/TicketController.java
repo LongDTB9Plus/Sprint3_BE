@@ -106,7 +106,7 @@ public class TicketController {
         return null;
     }
 
-    @GetMapping(value = "find-by-lisence/{license}")
+    @GetMapping(value = "find-by-license/{license}")
     public ResponseEntity<Set<Integer>> findTicketByLicense(@PathVariable String license) {
         Set<Integer> result = ticketService.findTicketByLicense(license);
         if (result.isEmpty()) {
@@ -128,5 +128,11 @@ public class TicketController {
     public ResponseEntity<ParkingLot> findLot(@PathVariable int id) {
         Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(id);
         return parkingLotOptional.map(parkingLot -> new ResponseEntity<>(parkingLot, HttpStatus.OK)).orElse(null);
+    }
+
+    @GetMapping(value = "get-by-license/{license}")
+    public ResponseEntity<Integer> getTicketDataByLicense(@PathVariable String license) {
+        Optional<Ticket> checkExist = ticketService.findAllByCar_LicenseAndAndTicketStatus(license, "TICKET_ENABLE");
+        return checkExist.map(ticket -> new ResponseEntity<>(ticket.getTicketId(), HttpStatus.ACCEPTED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.CONFLICT));
     }
 }

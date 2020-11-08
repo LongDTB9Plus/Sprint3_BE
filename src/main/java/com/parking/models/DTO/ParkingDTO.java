@@ -7,8 +7,17 @@ public class ParkingDTO {
     private Integer idParking;
     private LocalDateTime dateIn;
     private LocalDateTime dateOut;
+    private String license;
 
     public ParkingDTO() {
+    }
+
+    public String getLicense() {
+        return license;
+    }
+
+    public void setLicense(String license) {
+        this.license = license;
     }
 
     public Integer getIdParking() {

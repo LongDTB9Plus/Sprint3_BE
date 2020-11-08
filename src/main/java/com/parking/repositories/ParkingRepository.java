@@ -43,16 +43,17 @@ public interface ParkingRepository extends JpaRepository<Parking, Integer> {
                     "left join \n" +
                     "(select count(date_in) as ngay_vao , date_in\n" +
                     "from parking_lot_sprint3.parking\n" +
-                    "where (date_in >= '2016-02-02' and date_in <= '2020-06-02') \n" +
+                    "where (date_in >= ?1 and date_in <= ?2) \n" +
                     "group by(date_in)) as view_date_in\n" +
                     "on date_search.`date` = view_date_in.date_in\n" +
                     "\n" +
                     "left join \n" +
                     "(select count(date_out) as ngay_ra, date_out\n" +
                     "from parking_lot_sprint3.parking\n" +
-                    "where (date_out >= '2016-02-02' and date_out <= '2020-06-02') \n" +
+                    "where (date_out >= ?1 and date_out <= ?2) \n" +
                     "group by(date_out)) as view_date_out\n" +
-                    "on date_search.`date` = view_date_out.date_out",nativeQuery = true
+                    "on date_search.`date` = view_date_out.date_out\n" +
+                    "where `date` between ?1 and ?2",nativeQuery = true
     )
     List<String[]> getAllCarByDateInDateOut(String dateStart, String dateEnd);
 }

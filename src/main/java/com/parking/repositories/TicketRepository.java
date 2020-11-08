@@ -6,6 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
 import java.util.Set;
 
 /**
@@ -18,4 +19,6 @@ public interface TicketRepository extends JpaRepository<Ticket, Integer> {
             "join car on ticket.car_id = car.car_id " +
             "where car.license = ?1", nativeQuery = true)
     Set<Integer> findTicketByLicense(String license);
+
+    Optional<Ticket> findAllByCar_LicenseAndAndTicketStatus(String license, String ticketStatus);
 }

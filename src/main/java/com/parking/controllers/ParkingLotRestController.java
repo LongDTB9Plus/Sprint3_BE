@@ -3,6 +3,7 @@ package com.parking.controllers;
 import com.parking.models.DAO.Floor;
 import com.parking.models.DAO.ParkingLot;
 import com.parking.models.DAO.Zone;
+import com.parking.models.DTO.Dto;
 import com.parking.models.DTO.FloorDTO;
 import com.parking.models.DTO.ParkingLotDTO;
 import com.parking.models.DTO.ZoneDTO;
@@ -72,16 +73,37 @@ public class ParkingLotRestController {
     }
 
     @PostMapping("/saveZone")
-    public void saveZone(@RequestBody Zone zone, @RequestBody List<ParkingLot> parkingLotList){
-        zoneService.addZone(zone);
-        for (ParkingLot parkingLot: parkingLotList) {
-            parkingLotService.addParkingLot(parkingLot);
-        }
+    public void saveZone(@RequestBody Dto dto){
+        ZoneDTO zone = dto.getZone();
+        FloorDTO floorChoose = dto.getFloorChoose();
+        System.out.println(floorChoose.getId());
+        System.out.println(floorChoose.getListZone());
+        System.out.println(floorChoose.getListZoneName());
+        System.out.println(floorChoose.getName());
+        System.out.println(zone.getName());
+        System.out.println(zone.getId());
+        System.out.println(zone.getPositionX());
+//        Zone zoneSave = new Zone();
+//        if(zone.getName() == null || zone.getName().equals("")){
+//            zoneSave.setZoneName("Khu " + zone.getId());
+//        }else {
+//            zoneSave.setZoneName(zone.getName());
+//        }
+//        zoneSave.setDirection(zone.getDirection());
+//        Floor floor1 = floorService.findById(floorChoose.getId());
+//        zoneSave.setFloor(floor1);
+//        zoneSave.setPositionX((int) Math.random()*500);
+//        zoneSave.setPositionY((int) Math.random()*600);
+//        zoneService.addZone(zoneSave);
     }
 
-    @PostMapping("/saveFloor")
-    public void saveFloor(@RequestBody Floor floor){
+    @GetMapping("/saveFloor")
+    public ResponseEntity<Floor> saveFloor(){
+        Floor floor = new Floor();
+        Integer id =  floorService.getCountOfFloor() + 1;
+        floor.setNameFloor("Tầng " + id);
         floorService.addFloor(floor);
+        return new ResponseEntity<>(floor, HttpStatus.OK);
     }
 
     @GetMapping("/getParkingLotById/{id}")

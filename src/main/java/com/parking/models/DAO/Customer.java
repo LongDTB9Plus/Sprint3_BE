@@ -21,7 +21,7 @@ public class Customer {
     private String gender;
     private String idCard;
     private String address;
-    @OneToMany(mappedBy = "customer", cascade = CascadeType.DETACH)
+    @OneToMany(mappedBy = "customer", cascade = CascadeType.REMOVE)
 //    @JsonBackReference
     private List<Car> cars;
 

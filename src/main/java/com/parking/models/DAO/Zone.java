@@ -1,13 +1,19 @@
 package com.parking.models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idZone")
 public class Zone {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idZone;
 
     private String zoneName;
@@ -16,11 +22,11 @@ public class Zone {
     private Integer positionY;
     private Integer direction;
 
-    @ManyToOne
-    @JoinColumn(name="floor_idFloor", nullable=false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="floor_idFloor")
     private Floor floor;
 
-    @OneToMany(mappedBy="zone")
+    @OneToMany(mappedBy="zone", cascade = CascadeType.MERGE)
     private List<ParkingLot> listParkingLot;
 
     public Zone() {
