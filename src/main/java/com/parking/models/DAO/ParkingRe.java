@@ -8,6 +8,7 @@ public class ParkingRe {
     private Integer idParking;
     private ZonedDateTime dateStart;
     private ZonedDateTime dateEnd;
+    private String carType;
     private Boolean status;
     private String customerName;
     private String customerEmail;
@@ -19,18 +20,27 @@ public class ParkingRe {
 
     }
 
-    public ParkingRe(Integer idParking, ZonedDateTime dateStart, ZonedDateTime dateEnd,
+    public ParkingRe(Integer idParking, ZonedDateTime dateStart, ZonedDateTime dateEnd, String carType,
                      Boolean status, String customerName, String customerEmail,
                      String license, Integer ticketId, ParkingLotDTO parkingLotDTO) {
         this.idParking = idParking;
         this.dateStart = dateStart;
         this.dateEnd = dateEnd;
+        this.carType = carType;
         this.status = status;
         this.customerName = customerName;
         this.customerEmail = customerEmail;
         this.license = license;
         this.ticketId = ticketId;
         this.parkingLotDTO = parkingLotDTO;
+    }
+
+    public String getCarType() {
+        return carType;
+    }
+
+    public void setCarType(String carType) {
+        this.carType = carType;
     }
 
     public ZonedDateTime getDateEnd() {
