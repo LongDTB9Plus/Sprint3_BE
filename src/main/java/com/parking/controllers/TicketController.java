@@ -58,8 +58,8 @@ public class TicketController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "get-car-by-lisence/{lisence}")
-    public ResponseEntity<String> getCarByLicense(@PathVariable String lisence) {
+    @GetMapping(value = "get-customer-by-lisence/{lisence}")
+    public ResponseEntity<String> getCustomerByLisence(@PathVariable String lisence) {
         return ResponseEntity.ok(customerService.findCustomerNameByCarLicense(lisence));
     }
 
@@ -91,12 +91,22 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "ticket-deleted")
+    public ResponseEntity<List<TicketDTO>> findTicketDeleted() {
+        List<TicketDTO> result = ticketService
+                .findTicketDeleted()
+                .stream()
+                .map(ticket -> ticketConverter.convertToTicketDTO(ticket))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping(value = "expired")
     public ResponseEntity<Void> handlingExpiredTicket(@RequestBody TicketDTO ticketDTO) {
         return null;
     }
 
-    @GetMapping(value = "find-by-lisence/{license}")
+    @GetMapping(value = "find-by-license/{license}")
     public ResponseEntity<Set<Integer>> findTicketByLicense(@PathVariable String license) {
         Set<Integer> result = ticketService.findTicketByLicense(license);
         if (result.isEmpty()) {
@@ -107,10 +117,6 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "test")
-    public String test() {
-        return "Success!";
-    }
 
     //    quan
     @GetMapping(value = "{id}")
@@ -122,5 +128,11 @@ public class TicketController {
     public ResponseEntity<ParkingLot> findLot(@PathVariable int id) {
         Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(id);
         return parkingLotOptional.map(parkingLot -> new ResponseEntity<>(parkingLot, HttpStatus.OK)).orElse(null);
+    }
+
+    @GetMapping(value = "get-by-license/{license}")
+    public ResponseEntity<Integer> getTicketDataByLicense(@PathVariable String license) {
+        Optional<Ticket> checkExist = ticketService.findAllByCar_LicenseAndAndTicketStatus(license, "TICKET_ENABLE");
+        return checkExist.map(ticket -> new ResponseEntity<>(ticket.getTicketId(), HttpStatus.ACCEPTED)).orElseGet(() -> new ResponseEntity<>(HttpStatus.CONFLICT));
     }
 }

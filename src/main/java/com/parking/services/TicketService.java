@@ -14,6 +14,8 @@ public interface TicketService {
 
   List<Ticket> findAllTicket();
 
+  List<Ticket> getAllDeletedTickets();
+
   Optional<Ticket> findTicketById(Integer ticketId);
 
   void createTicket(Ticket ticket);
@@ -21,6 +23,8 @@ public interface TicketService {
   void editTicket(TicketDTO ticketDTO);
 
   void deleteTicket(Integer ticketId);
+
+  List<Ticket> findTicketDeleted();
 
   Ticket parseDTOtoTicket(TicketDTO ticketDTO);
 
@@ -30,4 +34,7 @@ public interface TicketService {
 
 //  quan
   TicketDTO getById(int id);
+
+//  Long
+  Optional<Ticket> findAllByCar_LicenseAndAndTicketStatus(String license, String ticketStatus);
 }

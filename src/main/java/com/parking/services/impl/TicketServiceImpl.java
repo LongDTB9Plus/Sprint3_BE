@@ -35,6 +35,13 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
+  public List<Ticket> getAllDeletedTickets() {
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_DELETED.name()));
+    return ticketList;
+  }
+
+  @Override
   public Optional<Ticket> findTicketById(Integer ticketId) {
     return ticketRepository.findById(ticketId);
   }
@@ -59,6 +66,13 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
+  public List<Ticket> findTicketDeleted() {
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_DELETED.name()));
+    return ticketList;
+  }
+
+  @Override
   public Ticket parseDTOtoTicket(TicketDTO ticketDTO) {
     return null;
   }
@@ -78,6 +92,11 @@ public class TicketServiceImpl implements TicketService {
   @Override
   public TicketDTO getById(int id) {
     return ticketRepository.findById(id).map(this::parseTicketToDTO).orElse(null);
+  }
+
+  @Override
+  public Optional<Ticket> findAllByCar_LicenseAndAndTicketStatus(String license, String ticketStatus) {
+    return ticketRepository.findAllByCar_LicenseAndAndTicketStatus(license, ticketStatus);
   }
 
 }
