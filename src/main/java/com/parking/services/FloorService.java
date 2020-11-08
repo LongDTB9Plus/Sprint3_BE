@@ -12,4 +12,5 @@ public interface FloorService {
     List<Floor> getAllFloor();
     Integer getCountOfFloor();
     Floor findById(Integer id);
+    Floor findByName(String name);
 }

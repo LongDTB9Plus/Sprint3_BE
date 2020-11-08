@@ -35,6 +35,13 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
+  public List<Ticket> getAllDeletedTickets() {
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_DELETED.name()));
+    return ticketList;
+  }
+
+  @Override
   public Optional<Ticket> findTicketById(Integer ticketId) {
     return ticketRepository.findById(ticketId);
   }
@@ -56,6 +63,13 @@ public class TicketServiceImpl implements TicketService {
         value.setTicketStatus(ETicketStatus.TICKET_DELETED.name());
         ticketRepository.save(value);
       });
+  }
+
+  @Override
+  public List<Ticket> findTicketDeleted() {
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_DELETED.name()));
+    return ticketList;
   }
 
   @Override

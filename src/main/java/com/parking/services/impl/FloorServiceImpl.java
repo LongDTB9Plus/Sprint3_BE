@@ -55,6 +55,11 @@ public class FloorServiceImpl implements FloorService {
         return floorRepository.findById(id).orElse(null);
     }
 
+    @Override
+    public Floor findByName(String name) {
+        return floorRepository.getFloorByNameFloorEquals(name);
+    }
+
     private FloorDTO convertFloorToDTO(Floor floor) {
         FloorDTO floorDTO = new FloorDTO();
         floorDTO.setId(floor.getIdFloor());
