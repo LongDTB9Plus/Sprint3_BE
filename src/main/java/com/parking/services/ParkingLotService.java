@@ -21,4 +21,5 @@ public interface ParkingLotService {
 
     Optional<ParkingLot> findAllByTicket_TicketIdAndStatusParkingLot(Integer ticketId, Boolean statusParkingLot);
     public ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot);
+    void save(ParkingLot parkingLot);
 }
