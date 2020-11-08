@@ -6,6 +6,7 @@ import com.parking.services.CarService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -15,58 +16,63 @@ import java.util.List;
 public class CarRestController {
     @Autowired
     CarService carService;
-//Long
+
+    //Long
     @GetMapping("get-car/{license}")
     public ResponseEntity<Car> getCarByLicense(@PathVariable String license) {
         Car car = carService.findCarByLicense(license);
-        if (car != null){
+        if (car != null) {
             return new ResponseEntity<>(car, HttpStatus.OK);
-        }else return new ResponseEntity<>(HttpStatus.CONFLICT);
+        } else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
-// Long
+
+    // Long
+    @PreAuthorize("hasRole('ADMIN')")
     @PostMapping("add-car")
-    public ResponseEntity<Integer> addNewCar(@RequestBody CarDTO carDTO){
+    public ResponseEntity<Integer> addNewCar(@RequestBody CarDTO carDTO) {
+        System.out.println("qua chua kia");
         Car car = carService.convertToCar(carDTO);
         Integer getID = carService.addNewCar(car);
-        if (getID != 0){
-            return new ResponseEntity<>(getID ,HttpStatus.CREATED);
-        }
-        else return new ResponseEntity<>(HttpStatus.CONFLICT);
+        if (getID != 0) {
+            return new ResponseEntity<>(getID, HttpStatus.CREATED);
+        } else return new ResponseEntity<>(HttpStatus.CONFLICT);
     }
 
 
-//    quan
+    //    quan
     @GetMapping("/all-car")
-    public ResponseEntity<List<CarDTO>> allCar(){
+    public ResponseEntity<List<CarDTO>> allCar() {
         return new ResponseEntity<>(carService.findAll(), HttpStatus.OK);
     }
 
-//    quan
+    //    quan
     @GetMapping("car/{id}")
-    public ResponseEntity<CarDTO> getCarId(@PathVariable int id){
+    public ResponseEntity<CarDTO> getCarId(@PathVariable int id) {
         return new ResponseEntity<>(carService.findById(id), HttpStatus.OK);
     }
 
-//    quan
+    //    quan
     @DeleteMapping("delete-car/{id}")
-    public ResponseEntity<Void> deleteCar(@PathVariable int id){
+    public ResponseEntity<Void> deleteCar(@PathVariable int id) {
         carService.delete(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    quan
+    //    quan
     @GetMapping("get-car-by-customer/{id}")
-    public ResponseEntity<List<CarDTO>> getCarByCustomer(@PathVariable Integer id){
+    public ResponseEntity<List<CarDTO>> getCarByCustomer(@PathVariable Integer id) {
         return new ResponseEntity<>(carService.findCarByCustomer(id), HttpStatus.OK);
     }
-// Chau
+
+    // Chau
     @GetMapping("getAllCarByType/{type}")
-    public ResponseEntity<List<CarDTO>> getAllCarByType(@PathVariable String type){
+    public ResponseEntity<List<CarDTO>> getAllCarByType(@PathVariable String type) {
         return new ResponseEntity<>(carService.findAllCarByType(type), HttpStatus.OK);
     }
-//    quan
+
+    //    quan
     @PostMapping("/edit-car")
-    public ResponseEntity<Void> editCar(@RequestBody CarDTO carDTO){
+    public ResponseEntity<Void> editCar(@RequestBody CarDTO carDTO) {
         carService.editCar(carDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
