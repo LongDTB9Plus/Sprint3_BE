@@ -1,24 +1,30 @@
 package com.parking.models.DAO;
 
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+
 import javax.persistence.*;
 
 @Entity
+@JsonIdentityInfo(
+        generator = ObjectIdGenerators.PropertyGenerator.class,
+        property = "idParkingLot")
 public class ParkingLot {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idParkingLot;
 
     private Boolean statusParkingLot;
 
-    @ManyToOne
-    @JoinColumn(name="zone_idZone", nullable=false)
+    @ManyToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name="idZone")
     private Zone zone;
 
     /**
      * @author: Thien ~ Setup relationship with [Ticket]
      */
-    @ManyToOne(targetEntity = Ticket.class)
+    @ManyToOne(targetEntity = Ticket.class, cascade = CascadeType.MERGE)
     @JoinColumn(name = "ticketId")
     private Ticket ticket;
 

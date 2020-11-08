@@ -36,10 +36,10 @@ public class Ticket {
   @Column
   private String ticketStatus;
 
-  @OneToMany(mappedBy = "ticket")
+  @OneToMany(mappedBy = "ticket", cascade = CascadeType.MERGE)
   private Set<ParkingLot> parkingLots;
 
-  @ManyToOne(targetEntity = TicketType.class)
+  @ManyToOne(targetEntity = TicketType.class, cascade = CascadeType.MERGE)
   @JoinColumn(name = "ticketTypeId", nullable = false)
   private TicketType ticketType;
 

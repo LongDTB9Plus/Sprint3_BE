@@ -74,8 +74,9 @@ public class ParkingApplication implements ApplicationRunner {
         }
 //        fake data customer
         if (customerService.findAllCustomer().isEmpty()) {
-//            Customer data 1
+
             {
+//                Customer data 1
                 Customer test1 = new Customer();
                 test1.setAddress("Da Nang");
                 test1.setBirthday("24/08/1993");
@@ -86,7 +87,7 @@ public class ParkingApplication implements ApplicationRunner {
                 test1.setPhone("0941286408");
                 Integer customerId = customerService.saveNewCustomer(test1);
                 test1.setId(customerId);
-//           Customer datat 2
+//           Customer data test 2
                 Customer test2 = new Customer();
                 test2.setAddress("Da Nang");
                 test2.setBirthday("14/04/1991");
@@ -147,10 +148,12 @@ public class ParkingApplication implements ApplicationRunner {
                 Zone zone = new Zone();
                 zone.setPositionX(10);
                 zone.setPositionY(10);
+                floor = floorService.findById(1);
                 zone.setFloor(floor);
                 zone.setDirection(0);
                 zone.setZoneName("Khu A");
                 zoneService.addZone(zone);
+                zone = zoneService.getZoneById(1);
                 {
                     ParkingLot parkingLot = new ParkingLot();
                     parkingLot.setZone(zone);
@@ -193,10 +196,12 @@ public class ParkingApplication implements ApplicationRunner {
                 Zone zone2 = new Zone();
                 zone2.setPositionX(500);
                 zone2.setPositionY(10);
+                floor = floorService.findById(1);
                 zone2.setFloor(floor);
                 zone2.setDirection(1);
                 zone2.setZoneName("Khu B");
                 zoneService.addZone(zone2);
+                zone2 = zoneService.getZoneById(2);
                 {
                     ParkingLot parkingLot = new ParkingLot();
                     parkingLot.setZone(zone2);

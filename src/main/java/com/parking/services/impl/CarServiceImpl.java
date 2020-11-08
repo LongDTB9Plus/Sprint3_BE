@@ -37,10 +37,10 @@ public class CarServiceImpl implements CarService {
     public Car convertToCar(CarDTO carDTO){
         Car car = new Car();
 //        Add logic for id in add new and parse situation.
-//        if (carDTO.getCarId() != 0) {
-//            car.setCarId(carDTO.getCarId());
-//        }else car.setCarId(null);
-        car.setCarId(carDTO.getCarId());
+        if (carDTO.getCarId() != 0) {
+            car.setCarId(carDTO.getCarId());
+        }else car.setCarId(null);
+//        car.setCarId(carDTO.getCarId());
         car.setColor(carDTO.getColor());
         car.setCustomer(customerRepository.findById(carDTO.getCustomerId()).orElse(null));
         car.setType(carDTO.getType());

@@ -30,4 +30,7 @@ public interface TicketService {
 
 //  quan
   TicketDTO getById(int id);
+
+//  Long
+  Optional<Ticket> findAllByCar_LicenseAndAndTicketStatus(String license, String ticketStatus);
 }

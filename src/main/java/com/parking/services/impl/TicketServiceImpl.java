@@ -80,4 +80,9 @@ public class TicketServiceImpl implements TicketService {
     return ticketRepository.findById(id).map(this::parseTicketToDTO).orElse(null);
   }
 
+  @Override
+  public Optional<Ticket> findAllByCar_LicenseAndAndTicketStatus(String license, String ticketStatus) {
+    return ticketRepository.findAllByCar_LicenseAndAndTicketStatus(license, ticketStatus);
+  }
+
 }

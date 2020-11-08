@@ -18,4 +18,7 @@ public interface ParkingLotService {
     ParkingLotDTO findById(Integer id);
 
     Optional<ParkingLot> findParkingLotEntityById(Integer id);
+
+    Optional<ParkingLot> findAllByTicket_TicketIdAndStatusParkingLot(Integer ticketId, Boolean statusParkingLot);
+    public ParkingLotDTO convertParkingLotToDTO(ParkingLot parkingLot);
 }
