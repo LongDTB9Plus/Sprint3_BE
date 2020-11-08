@@ -56,6 +56,11 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         return parkingLotDTO;
     }
 
+    @Override
+    public void save(ParkingLot parkingLot) {
+        parkingLotRepository.save(parkingLot);
+    }
+
     /**
      * @author Thien: find parking lot by id
      */
