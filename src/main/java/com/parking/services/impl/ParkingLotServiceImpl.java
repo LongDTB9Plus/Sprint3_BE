@@ -50,6 +50,9 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         parkingLotDTO.setNameZone(parkingLot.getZone().getZoneName());
         parkingLotDTO.setStatus(parkingLot.getStatusParkingLot());
         parkingLotDTO.setDirection(parkingLot.getZone().getDirection());
+        if(parkingLot.getTicket() != null){
+            parkingLotDTO.setCarLicense(parkingLot.getTicket().getCar().getLicense());
+        }
         return parkingLotDTO;
     }
 
