@@ -22,6 +22,8 @@ public interface TicketService {
 
   void deleteTicket(Integer ticketId);
 
+  List<Ticket> findTicketDeleted();
+
   Ticket parseDTOtoTicket(TicketDTO ticketDTO);
 
   TicketDTO parseTicketToDTO(Ticket ticket);

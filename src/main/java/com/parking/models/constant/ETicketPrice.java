@@ -8,15 +8,13 @@ import lombok.Setter;
  */
 @Getter
 public enum ETicketPrice {
-  VIP_HOUR(5000.0),
-  VIP_DAY(35000.0),
-  VIP_WEEK(840000.0),
-  VIP_MONTH(360000.0),
+  VIP_DAY(5000.0),
+  VIP_WEEK(5000.0 * 7),
+  VIP_MONTH(5000.0 * 30),
 
-  NORMAL_HOUR(2000.0),
-  NORMAL_DAY(48000.0),
-  NORMAL_WEEK(336000.0),
-  NORMAL_MONTH(1440000.0);
+  NORMAL_DAY(2000.0),
+  NORMAL_WEEK(2000.0 * 7),
+  NORMAL_MONTH(2000.0 * 30);
 
     private double price;
 

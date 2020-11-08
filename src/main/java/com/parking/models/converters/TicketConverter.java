@@ -11,6 +11,9 @@ import org.springframework.stereotype.Component;
 
 import java.util.*;
 
+/**
+ * @author Thien
+ */
 @Component
 public class TicketConverter {
 
@@ -30,30 +33,38 @@ public class TicketConverter {
     ZoneService zoneService;
 
     public Ticket convertToTicket(TicketDTO ticketDTO) {
-        Ticket ticketResponse = new Ticket();
-        TicketType type = ticketTypeService.findByDetail(ticketDTO.getTicketTypeDetail());
+        Ticket ticket = new Ticket();
+        ticket.setStartDate(ticketDTO.getStartDate());
+        ticket.setEndDate(ticketDTO.getEndDate());
+        ticket.setTicketStatus(ticketDTO.getTicketStatus());
+
         Car car = carService.findCarByLicense(ticketDTO.getCarPlate());
-
-        Optional<Zone> zoneOptional = zoneService.findByZoneName(ticketDTO.getZoneName());
-
-        ParkingLot lot = new ParkingLot();
-        lot.setStatusParkingLot(true);
-        lot.setTicket(ticketResponse);
-
-        zoneOptional.ifPresent(lot::setZone);
-
-        Set<ParkingLot> parkingLots = new HashSet<>();
-        parkingLots.add(lot);
+        ticket.setCar(car);
 
 
-        ticketResponse.setStartDate(ticketDTO.getStartDate());
-        ticketResponse.setEndDate(ticketDTO.getEndDate());
-        ticketResponse.setTicketStatus(ticketDTO.getTicketStatus());
-        ticketResponse.setTicketType(type);
-        ticketResponse.setParkingLots(parkingLots);
-        ticketResponse.setCar(car);
+        TicketType type = ticketTypeService.findByDetail(ticketDTO.getTicketTypeDetail());
+        ticket.setTicketType(type);
 
-        return ticketResponse;
+
+        Set<ParkingLot> parkingLotsNew = new HashSet<>();
+        Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(ticketDTO.getParkingLot());
+        parkingLotOptional.ifPresent(parkingLotsNew::add);
+        ticket.setParkingLots(parkingLotsNew);
+
+        return ticket;
+
+        /**                             DTO
+         *  id                             id
+         *  startDate                      startDate
+         *  endDate                         endDate
+         *  ticketStatus                    ticketStatus
+         *
+         *
+         *  parkingLots: set                  parkingLot, zoneName, floorName: integer -> findById
+         *  ticketType: object               ticketTypeDetail -> find query
+         *  car: object                     find car by car plate
+         *                                  customerName.
+         */
     }
 
     public TicketDTO convertToTicketDTO(Ticket ticket) {

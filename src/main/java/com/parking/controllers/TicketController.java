@@ -58,8 +58,8 @@ public class TicketController {
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
 
-    @GetMapping(value = "get-car-by-lisence/{lisence}")
-    public ResponseEntity<String> getCarByLicense(@PathVariable String lisence) {
+    @GetMapping(value = "get-customer-by-lisence/{lisence}")
+    public ResponseEntity<String> getCustomerByLisence(@PathVariable String lisence) {
         return ResponseEntity.ok(customerService.findCustomerNameByCarLicense(lisence));
     }
 
@@ -91,6 +91,16 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @GetMapping(value = "ticket-deleted")
+    public ResponseEntity<List<TicketDTO>> findTicketDeleted() {
+        List<TicketDTO> result = ticketService
+                .findTicketDeleted()
+                .stream()
+                .map(ticket -> ticketConverter.convertToTicketDTO(ticket))
+                .collect(Collectors.toList());
+        return new ResponseEntity<>(result, HttpStatus.OK);
+    }
+
     @GetMapping(value = "expired")
     public ResponseEntity<Void> handlingExpiredTicket(@RequestBody TicketDTO ticketDTO) {
         return null;
@@ -107,10 +117,6 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-    @GetMapping(value = "test")
-    public String test() {
-        return "Success!";
-    }
 
     //    quan
     @GetMapping(value = "{id}")

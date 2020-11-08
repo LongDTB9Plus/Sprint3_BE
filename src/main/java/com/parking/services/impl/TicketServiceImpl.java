@@ -59,6 +59,13 @@ public class TicketServiceImpl implements TicketService {
   }
 
   @Override
+  public List<Ticket> findTicketDeleted() {
+    List<Ticket> ticketList = ticketRepository.findAll();
+    ticketList.removeIf(ticket -> !ticket.getTicketStatus().equalsIgnoreCase(ETicketStatus.TICKET_DELETED.name()));
+    return ticketList;
+  }
+
+  @Override
   public Ticket parseDTOtoTicket(TicketDTO ticketDTO) {
     return null;
   }

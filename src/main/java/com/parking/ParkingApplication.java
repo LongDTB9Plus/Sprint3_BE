@@ -38,22 +38,18 @@ public class ParkingApplication implements ApplicationRunner {
 
         if (ticketTypeService.findAll().isEmpty()) {
             String[] details = {
-                    "vip-hour",
                     "vip-day",
                     "vip-week",
                     "vip-month",
-                    "normal-hour",
                     "normal-day",
                     "normal-week",
                     "normal-month",
             };
 
             double[] prices = {
-                    ETicketPrice.VIP_HOUR.getPrice(),
                     ETicketPrice.VIP_DAY.getPrice(),
                     ETicketPrice.VIP_WEEK.getPrice(),
                     ETicketPrice.VIP_MONTH.getPrice(),
-                    ETicketPrice.NORMAL_HOUR.getPrice(),
                     ETicketPrice.NORMAL_DAY.getPrice(),
                     ETicketPrice.NORMAL_WEEK.getPrice(),
                     ETicketPrice.NORMAL_MONTH.getPrice()
