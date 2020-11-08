@@ -16,6 +16,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -32,6 +33,8 @@ public class ParkingLotRestController {
 
     @Autowired
     private ParkingService parkingService;
+
+    private String[] arrChar = new String[] {"A", "B", "C", "D", "E", "F", "G", "H", "I", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V", "X", "Y"};
 
     @GetMapping("/getAllParkingLot")
     public ResponseEntity<List<ParkingLotDTO>> getAllParkingLot(){
@@ -72,37 +75,26 @@ public class ParkingLotRestController {
         parkingLotService.addParkingLot(parkingLot);
     }
 
-    @PostMapping("/saveZone")
-    public void saveZone(@RequestBody Dto dto){
-        ZoneDTO zone = dto.getZone();
-        FloorDTO floorChoose = dto.getFloorChoose();
-        System.out.println(floorChoose.getId());
-        System.out.println(floorChoose.getListZone());
-        System.out.println(floorChoose.getListZoneName());
-        System.out.println(floorChoose.getName());
-        System.out.println(zone.getName());
-        System.out.println(zone.getId());
-        System.out.println(zone.getPositionX());
-//        Zone zoneSave = new Zone();
-//        if(zone.getName() == null || zone.getName().equals("")){
-//            zoneSave.setZoneName("Khu " + zone.getId());
-//        }else {
-//            zoneSave.setZoneName(zone.getName());
-//        }
-//        zoneSave.setDirection(zone.getDirection());
-//        Floor floor1 = floorService.findById(floorChoose.getId());
-//        zoneSave.setFloor(floor1);
-//        zoneSave.setPositionX((int) Math.random()*500);
-//        zoneSave.setPositionY((int) Math.random()*600);
-//        zoneService.addZone(zoneSave);
-    }
-
-    @GetMapping("/saveFloor")
-    public ResponseEntity<Floor> saveFloor(){
+    @PostMapping("/saveFloor")
+    public ResponseEntity<Floor> saveFloor(@RequestBody List<ZoneDTO> zones){
         Floor floor = new Floor();
-        Integer id =  floorService.getCountOfFloor() + 1;
+        int id =  floorService.getCountOfFloor() + 1;
         floor.setNameFloor("Tầng " + id);
         floorService.addFloor(floor);
+        floor = floorService.findByName(floor.getNameFloor());
+        for (ZoneDTO zone: zones) {
+            Zone zoneSave = new Zone();
+            if(zone.getName() == null || zone.getName().equals("")){
+            zoneSave.setZoneName("Khu " + arrChar[(int) (Math.random()*23)] + arrChar[(int) (Math.random()*23)]);
+            }else {
+                zoneSave.setZoneName(zone.getName());
+            }
+            zoneSave.setDirection(0);
+            zoneSave.setFloor(floor);
+            zoneSave.setPositionX((int) (Math.random()*500));
+            zoneSave.setPositionY((int) (Math.random()*600));
+            zoneService.addZone(zoneSave);
+        }
         return new ResponseEntity<>(floor, HttpStatus.OK);
     }
 
