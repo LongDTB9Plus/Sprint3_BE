@@ -5,10 +5,12 @@ import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import com.parking.models.DAO.ParkingLot;
 import com.parking.models.DAO.Ticket;
 import com.parking.models.DTO.TicketDTO;
 import com.parking.models.constant.ETicketStatus;
 import com.parking.models.converters.TicketConverter;
+import com.parking.repositories.ParkingLotRepository;
 import com.parking.repositories.TicketRepository;
 import com.parking.services.TicketService;
 
@@ -23,6 +25,9 @@ public class TicketServiceImpl implements TicketService {
 
   @Autowired
   TicketRepository ticketRepository;
+
+  @Autowired
+  ParkingLotRepository parkingLotRepository;
 
   @Autowired
   TicketConverter ticketConverter;
@@ -59,8 +64,16 @@ public class TicketServiceImpl implements TicketService {
   @Override
   public void deleteTicket(Integer ticketId) {
       Optional<Ticket> ticket = ticketRepository.findById(ticketId);
+
+      Set<ParkingLot> parkingLots = ticket.get().getParkingLots();
       ticket.ifPresent(value -> {
         value.setTicketStatus(ETicketStatus.TICKET_DELETED.name());
+        parkingLots.forEach(lot -> {
+          lot.setStatusParkingLot(true);
+          parkingLotRepository.save(lot);
+        });
+        value.setParkingLots(parkingLots);
+
         ticketRepository.save(value);
       });
   }
