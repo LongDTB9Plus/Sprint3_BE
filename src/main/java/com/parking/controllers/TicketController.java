@@ -17,15 +17,7 @@ import com.parking.services.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.*;
 
 
 /**
@@ -75,9 +67,19 @@ public class TicketController {
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
-    @PutMapping(value = "edit")
-    public ResponseEntity<Void> editTicket(@RequestBody TicketDTO ticketDTO) {
-        return null;
+    @PatchMapping(value = "edit/{idTicket}")
+    public ResponseEntity<Void> editTicket(
+            @RequestBody TicketDTO ticketDTO,
+            @PathVariable Integer idTicket
+    ) {
+        Optional<Ticket> ticketOptional = ticketService.findTicketById(idTicket);
+        Ticket ticket = ticketOptional.get();
+
+        if(ticketOptional.isPresent()) {
+            ticketService.createTicket(ticketConverter.convertToTicket(ticketDTO));
+            return new ResponseEntity<>(HttpStatus.ACCEPTED);
+        }
+        return new ResponseEntity<>(HttpStatus.NOT_ACCEPTABLE);
     }
 
     @DeleteMapping(value = "delete/{ticketId}")
