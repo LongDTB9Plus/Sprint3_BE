@@ -9,6 +9,7 @@ import java.util.Optional;
 
 public interface ZoneService {
     List<ZoneDTO> getAllZoneDTO(Integer id);
+    List<ZoneDTO> getAllZoneDTO();
     void addZone(Zone zone);
     void deleteZone(Integer id);
 

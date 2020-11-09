@@ -9,6 +9,7 @@ public class ZoneDTO {
     private Integer positionY;
     private Integer direction;
     private Integer idFloor;
+    private Integer typeZone;
 
     private List<Integer> listParkingLot;
 
@@ -69,5 +70,13 @@ public class ZoneDTO {
 
     public void setIdFloor(Integer idFloor) {
         this.idFloor = idFloor;
+    }
+
+    public Integer getTypeZone() {
+        return typeZone;
+    }
+
+    public void setTypeZone(Integer typeZone) {
+        this.typeZone = typeZone;
     }
 }

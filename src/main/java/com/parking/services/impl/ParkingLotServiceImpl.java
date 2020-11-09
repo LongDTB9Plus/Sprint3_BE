@@ -53,6 +53,7 @@ public class ParkingLotServiceImpl implements ParkingLotService {
         if(parkingLot.getTicket() != null){
             parkingLotDTO.setCarLicense(parkingLot.getTicket().getCar().getLicense());
         }
+        parkingLotDTO.setTypeZone(parkingLot.getZone().getTypeZone());
         return parkingLotDTO;
     }
 
