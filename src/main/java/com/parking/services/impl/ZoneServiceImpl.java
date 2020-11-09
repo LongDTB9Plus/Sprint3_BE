@@ -36,6 +36,11 @@ public class ZoneServiceImpl implements ZoneService {
     }
 
     @Override
+    public List<ZoneDTO> getAllZoneDTO() {
+        return zoneRepository.findAll().stream().map(this::convertZoneToDTO).collect(Collectors.toList());
+    }
+
+    @Override
     public void addZone(Zone zone) {
         zoneRepository.save(zone);
     }
@@ -64,6 +69,7 @@ public class ZoneServiceImpl implements ZoneService {
             arrIdParkingLot.add(p.getIdParkingLot());
         }
         zoneDTO.setListParkingLot(arrIdParkingLot);
+        zoneDTO.setTypeZone(zone.getTypeZone());
         return zoneDTO;
     }
 

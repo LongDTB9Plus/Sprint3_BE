@@ -29,6 +29,8 @@ public class Zone {
     @OneToMany(mappedBy="zone", cascade = CascadeType.MERGE)
     private List<ParkingLot> listParkingLot;
 
+    private Integer typeZone;
+
     public Zone() {
     }
 
@@ -86,5 +88,13 @@ public class Zone {
 
     public void setListParkingLot(List<ParkingLot> listParkingLot) {
         this.listParkingLot = listParkingLot;
+    }
+
+    public Integer getTypeZone() {
+        return typeZone;
+    }
+
+    public void setTypeZone(Integer typeZone) {
+        this.typeZone = typeZone;
     }
 }

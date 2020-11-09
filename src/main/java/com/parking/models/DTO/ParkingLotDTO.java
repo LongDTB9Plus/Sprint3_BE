@@ -9,6 +9,7 @@ public class ParkingLotDTO {
     private Boolean status;
     private Integer direction;
     private String carLicense;
+    private Integer typeZone;
 
     public ParkingLotDTO() {
     }
@@ -75,5 +76,13 @@ public class ParkingLotDTO {
 
     public void setCarLicense(String carLicense) {
         this.carLicense = carLicense;
+    }
+
+    public Integer getTypeZone() {
+        return typeZone;
+    }
+
+    public void setTypeZone(Integer typeZone) {
+        this.typeZone = typeZone;
     }
 }

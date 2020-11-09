@@ -148,18 +148,19 @@ public class ParkingApplication implements ApplicationRunner {
                 zone.setFloor(floor);
                 zone.setDirection(0);
                 zone.setZoneName("Khu A");
+                zone.setTypeZone(0);
                 zoneService.addZone(zone);
                 zone = zoneService.getZoneById(1);
                 {
                     ParkingLot parkingLot = new ParkingLot();
                     parkingLot.setZone(zone);
-                    parkingLot.setStatusParkingLot(false);
+                    parkingLot.setStatusParkingLot(true);
                     parkingLotService.addParkingLot(parkingLot);
                 }
                 {
                     ParkingLot parkingLot = new ParkingLot();
                     parkingLot.setZone(zone);
-                    parkingLot.setStatusParkingLot(false);
+                    parkingLot.setStatusParkingLot(true);
                     parkingLotService.addParkingLot(parkingLot);
                 }
                 {
@@ -196,6 +197,7 @@ public class ParkingApplication implements ApplicationRunner {
                 zone2.setFloor(floor);
                 zone2.setDirection(1);
                 zone2.setZoneName("Khu B");
+                zone2.setTypeZone(0);
                 zoneService.addZone(zone2);
                 zone2 = zoneService.getZoneById(2);
                 {
