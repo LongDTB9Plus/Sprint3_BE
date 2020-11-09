@@ -68,11 +68,6 @@ public class TicketController {
         return ResponseEntity.ok(parkingLotService.findById(id));
     }
 
-    @GetMapping(value = "find/{ticketId}")
-    public ResponseEntity<Void> findTicketById(@PathVariable Integer ticketId) {
-        return null;
-    }
-
     @PostMapping(value = "create")
     public ResponseEntity<Void> createTicked(@RequestBody TicketDTO ticketDTO) {
         Ticket ticket = ticketConverter.convertToTicket(ticketDTO);
@@ -116,7 +111,6 @@ public class TicketController {
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
-
 
     //    quan
     @GetMapping(value = "{id}")
