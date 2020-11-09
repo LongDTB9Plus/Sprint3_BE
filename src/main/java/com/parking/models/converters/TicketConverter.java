@@ -48,23 +48,13 @@ public class TicketConverter {
 
         Set<ParkingLot> parkingLotsNew = new HashSet<>();
         Optional<ParkingLot> parkingLotOptional = parkingLotService.findParkingLotEntityById(ticketDTO.getParkingLot());
-        parkingLotOptional.ifPresent(parkingLotsNew::add);
+        parkingLotOptional.ifPresent(parkingLot -> {
+            parkingLot.setStatusParkingLot(false);
+            parkingLot.setTicket(ticket);
+        });
         ticket.setParkingLots(parkingLotsNew);
 
         return ticket;
-
-        /**                             DTO
-         *  id                             id
-         *  startDate                      startDate
-         *  endDate                         endDate
-         *  ticketStatus                    ticketStatus
-         *
-         *
-         *  parkingLots: set                  parkingLot, zoneName, floorName: integer -> findById
-         *  ticketType: object               ticketTypeDetail -> find query
-         *  car: object                     find car by car plate
-         *                                  customerName.
-         */
     }
 
     public TicketDTO convertToTicketDTO(Ticket ticket) {
