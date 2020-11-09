@@ -91,8 +91,8 @@ public class ParkingLotRestController {
             }
             zoneSave.setDirection(0);
             zoneSave.setFloor(floor);
-            zoneSave.setPositionX((int) (Math.random()*500));
-            zoneSave.setPositionY((int) (Math.random()*600));
+            zoneSave.setPositionX((int) (Math.random()*200));
+            zoneSave.setPositionY((int) (Math.random()*300));
             zoneService.addZone(zoneSave);
         }
         return new ResponseEntity<>(floor, HttpStatus.OK);
@@ -115,7 +115,6 @@ public class ParkingLotRestController {
 
     @GetMapping("/changeZonePositionX/{id}/{pX}")
     public void changeZonePositionX(@PathVariable Integer id, @PathVariable Integer pX){
-        System.out.println("X");
         Zone zone = zoneService.getZoneById(id);
         zone.setPositionX(pX);
         zoneService.addZone(zone);
@@ -123,9 +122,22 @@ public class ParkingLotRestController {
 
     @GetMapping("/changeZonePositionY/{id}/{pY}")
     public void changeZonePositionY(@PathVariable Integer id, @PathVariable Integer pY){
-        System.out.println("Y");
         Zone zone = zoneService.getZoneById(id);
         zone.setPositionY(pY);
+        zoneService.addZone(zone);
+    }
+
+    @GetMapping("/changeDirection/{id}/{dir}")
+    public void changeDirection(@PathVariable Integer id, @PathVariable Integer dir){
+        Zone zone = zoneService.getZoneById(id);
+        zone.setDirection(dir);
+        zoneService.addZone(zone);
+    }
+
+    @GetMapping("/changeZoneName/{id}/{name}")
+    public void changeZoneName(@PathVariable Integer id, @PathVariable String name){
+        Zone zone = zoneService.getZoneById(id);
+        zone.setZoneName(name);
         zoneService.addZone(zone);
     }
 

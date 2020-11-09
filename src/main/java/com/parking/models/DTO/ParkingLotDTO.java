@@ -8,6 +8,7 @@ public class ParkingLotDTO {
     private String nameZone;
     private Boolean status;
     private Integer direction;
+    private String carLicense;
 
     public ParkingLotDTO() {
     }
@@ -66,5 +67,13 @@ public class ParkingLotDTO {
 
     public void setDirection(Integer direction) {
         this.direction = direction;
+    }
+
+    public String getCarLicense() {
+        return carLicense;
+    }
+
+    public void setCarLicense(String carLicense) {
+        this.carLicense = carLicense;
     }
 }
