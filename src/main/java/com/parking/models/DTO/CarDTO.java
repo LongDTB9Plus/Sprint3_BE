@@ -1,5 +1,6 @@
 package com.parking.models.DTO;
 
+import java.util.List;
 import java.util.Set;
 
 public class CarDTO {
@@ -11,6 +12,15 @@ public class CarDTO {
     private String type;
     Set<Integer> parkings;
     private Set<Integer> ticket;
+    private List<String> ticketStatusList;
+
+    public List<String> getticketStatusList() {
+        return ticketStatusList;
+    }
+
+    public void setticketStatusList(List<String> ticketStatusList) {
+        this.ticketStatusList = ticketStatusList;
+    }
 
     public Set<Integer> getTicket() {
         return ticket;

@@ -10,4 +10,5 @@ public enum ETicketStatus {
   TICKET_DISABLE,
   TICKET_DELETED,
   TICKET_EXPIRED,
+  TICKET_UNREGISTER,
 }

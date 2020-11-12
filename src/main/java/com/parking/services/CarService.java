@@ -4,6 +4,7 @@ import com.parking.models.DAO.Car;
 import com.parking.models.DTO.CarDTO;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface CarService {
     List<CarDTO> findAll();
@@ -30,6 +31,9 @@ public interface CarService {
 
 //    quan
     void editCar(CarDTO carDTO);
+
+    List<Car> findCarByNameCustomer(String customerName);
+    CarDTO convertToCarDto(Car car);
 }
 
 
