@@ -40,7 +40,7 @@ public class TicketController {
     @Autowired
     ParkingLotService parkingLotService;
 
-    @GetMapping(value = "all")
+    @GetMapping(value = "/list")
     public ResponseEntity<List<TicketDTO>> findAllTicket() {
         List<TicketDTO> result = ticketService
                 .findAllTicket()

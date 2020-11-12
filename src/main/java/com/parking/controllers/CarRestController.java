@@ -9,7 +9,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @CrossOrigin(origins = "*", allowedHeaders = "*")
@@ -75,5 +77,14 @@ public class CarRestController {
     public ResponseEntity<Void> editCar(@RequestBody CarDTO carDTO) {
         carService.editCar(carDTO);
         return new ResponseEntity<>(HttpStatus.CREATED);
+    }
+
+    @GetMapping("getCarByCustomerName/{customerName}")
+    public ResponseEntity<List<CarDTO>> getCarByCustomerName(@PathVariable String customerName) {
+        List<CarDTO> carDTO = carService
+            .findCarByNameCustomer(customerName)
+            .stream()
+            .map(car -> carService.convertToCarDto(car)).collect(Collectors.toList());
+        return ResponseEntity.ok(carDTO);
     }
 }
